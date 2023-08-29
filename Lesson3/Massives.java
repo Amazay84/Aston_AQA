@@ -35,37 +35,48 @@ public class Massives {
     }
 
     public static void printSingleDimArray(int[] array) {
-        Arrays.stream(array).forEach(System.out::print);
+        Arrays.stream(array).forEach(s -> System.out.print(String.valueOf(s).concat(" ")));
     }
 
     public static void printTwoDimArray(int[][] array) {
-        for (int[] ints : array) {
+        for (int[] i : array) {
             System.out.println();
-            for (int anInt : ints) {
-                System.out.print(anInt);
+            for (int j : i) {
+                System.out.print(j);
             }
         }
     }
     public static void main(String[] args) {
         int[] array = {1, 0, 1, 1, 0, 1, 0, 1, 0, 0};
-        Arrays.stream(array).forEach(System.out::print);
+        Massives.printSingleDimArray(array);
         System.out.println();
         for (int i = 0; i < array.length; i++) {
             array[i] = (array[i] == 0 ? 1 : 0);
         }
         Massives.printSingleDimArray(array);
-        System.out.println();
+        System.out.println(System.lineSeparator().concat("_________________________________________________________________"));
 
         int[] hundred = new int[100];
         for (int i = 0; i < hundred.length; i++) {
             hundred[i] = i + 1;
         }
-        Arrays.stream(hundred).forEach((s) -> System.out.print(String.valueOf(s).concat(" ")));
+        Massives.printSingleDimArray(hundred);
+        System.out.println(System.lineSeparator().concat("_________________________________________________________________"));
+
+        int[] multipleArray = {1, 5, 3, 11, 2, 4, 5, 2, 4, 8,9, 1};
+        Massives.printSingleDimArray(multipleArray);
         System.out.println();
+        for (int i = 0; i < multipleArray.length; i++) {
+            if (multipleArray[i] < 6) {
+                multipleArray[i] = multipleArray[i] * 2;
+            }
+        }
+        Massives.printSingleDimArray(multipleArray);
+        System.out.println(System.lineSeparator().concat("_________________________________________________________________"));
 
         Massives massives = new Massives(massiveCrossFiller(10, 10));
         Massives.printTwoDimArray(massives.getArray());
-        System.out.println();
+        System.out.println(System.lineSeparator().concat("_________________________________________________________________"));
 
         Massives.printSingleDimArray(Massives.arrayInitializer(9, 5));
     }
