@@ -14,12 +14,7 @@ public class Massives {
         int[][] array = new int[a][b];
         for (int i = 0; i < array.length; i++){
             for (int j = 0; j < array[i].length; j++){
-                if (i == j) {
-                    array[i][j] = 1;
-                }
-                if (array[i].length - 1 - i == j) {
-                    array[i][j] = 1;
-                }
+                array[i][j] = ((i == j) || (array[i].length - 1 - i) == j ? 1 : 0);
             }
         }
         return array;
@@ -42,7 +37,7 @@ public class Massives {
         for (int[] i : array) {
             System.out.println();
             for (int j : i) {
-                System.out.print(j);
+                System.out.print(j + " ");
             }
         }
     }
