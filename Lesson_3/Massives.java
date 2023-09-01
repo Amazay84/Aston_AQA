@@ -34,12 +34,7 @@ public class Massives {
     }
 
     public static void printTwoDimArray(int[][] array) {
-        for (int[] i : array) {
-            System.out.println();
-            for (int j : i) {
-                System.out.print(j + " ");
-            }
-        }
+        System.out.println(Arrays.deepToString(array).replace("], ", "]\n"));
     }
     public static void main(String[] args) {
         int[] array = {1, 0, 1, 1, 0, 1, 0, 1, 0, 0};
