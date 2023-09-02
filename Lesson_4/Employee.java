@@ -17,6 +17,10 @@ public class Employee {
         this.age = age;
     }
 
+    public int getAge() {
+        return age;
+    }
+
     @Override
     public String toString() {
         return "Employee: ".concat("\nfull name: ".concat(fullName))
@@ -33,6 +37,9 @@ public class Employee {
         employees[2] = new Employee("Кравцова Екатерина Васильевна", "Бухгалтер", "kravtsova@mail.ru", 666554434, 80000, 29);
         employees[3] = new Employee("Романова Ангелина Аркадьевна", "Главный бухгалтер", "romanova@mail.ru", 111222333, 150000, 45);
         employees[4] = new Employee("Давыденко Михаил Петрович", "Директор", "bigboss@mail.ru", 777777777, 300000, 50);
-        Arrays.stream(employees).forEach(System.out::println);
+        Arrays.stream(employees).
+                sorted((e1, e2) -> Integer.compare(e1.getAge(), e2.getAge())).
+                filter(e -> e.getAge() > 40).
+                forEach(System.out::println);
     }
 }

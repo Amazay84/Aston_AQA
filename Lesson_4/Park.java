@@ -24,7 +24,7 @@ public class Park {
 
     @Override
     public String toString() {
-        return "Park {" +
+        return this.getClass().getSimpleName() + " {" +
                 " attractions = " + attractionList.toString() +
                 " } ";
     }
@@ -70,7 +70,10 @@ public class Park {
     public static void main(String[] args) {
         Park park = new Park(new Attractions("Центрифуга", "10:00 - 20:00", 5));
         park.addAttractions(new Attractions("Цепная карусель", "10:00 - 20:00", 4.5));
+        Park park1 = new Park(new Attractions("Гонки", "11:00 - 22:00", 15));
         System.out.println(park);
         park.getAttractionList().stream().forEach(s -> System.out.println(s));
+        System.out.println(park1);
+
     }
 }
