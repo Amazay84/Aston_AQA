@@ -28,7 +28,7 @@ public class Employee {
                 .concat("\nemail: ".concat(email))
                 .concat("\nphoneNumber: ".concat(String.valueOf(phoneNumber)))
                 .concat("\nsalary: ".concat(String.valueOf(salary)))
-                .concat("\nage: ".concat(String.valueOf(age) + "\n"));
+                .concat("\nage: ".concat(age + "\n"));
     }
     public static void main(String[] args) {
         Employee[] employees = new Employee[5];
@@ -38,7 +38,7 @@ public class Employee {
         employees[3] = new Employee("Романова Ангелина Аркадьевна", "Главный бухгалтер", "romanova@mail.ru", 111222333, 150000, 45);
         employees[4] = new Employee("Давыденко Михаил Петрович", "Директор", "bigboss@mail.ru", 777777777, 300000, 50);
         Arrays.stream(employees).
-                sorted((e1, e2) -> Integer.compare(e1.getAge(), e2.getAge())).
+                sorted((e1, e2) -> Integer.compare(e2.getAge(), e1.getAge())).
                 filter(e -> e.getAge() > 40).
                 forEach(System.out::println);
     }
