@@ -2,34 +2,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Park {
-    private List<Attractions> attractionList = new ArrayList<>();
+    private Attractions attractions;
     public Park(Attractions attractions) {
-       this.attractionList.add(attractions);
+       this.attractions = attractions;
     }
 
     public Park() {
     }
 
-    public List<Attractions> getAttractionList() {
-        return attractionList;
+    public Attractions getAttractions() {
+        return attractions;
     }
 
-    public void setAttractionList(List<Attractions> attractionList) {
-        this.attractionList = attractionList;
-    }
-
-    public void addAttractions(Attractions attractions) {
-        attractionList.add(attractions);
+    public void setAttractions(Attractions attractions) {
+        this.attractions = attractions;
     }
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + " {" +
-                " attractions = " + attractionList.toString() +
-                " } ";
+        return this.getClass().getSimpleName().concat(" {" +
+                "attractions=" + attractions +
+                '}');
     }
 
-    private static class Attractions {
+    private class Attractions {
         private String name;
         private String workingHours;
         private double cost;
@@ -59,21 +55,22 @@ public class Park {
 
         @Override
         public String toString() {
-            return "Attractions {" +
+            return this.getClass().getSimpleName().concat(" {" +
                     " name = '" + name + '\'' +
                     ", workingHours = '" + workingHours + '\'' +
                     ", cost = " + cost +
-                    " } ";
+                    " } ");
         }
     }
 
     public static void main(String[] args) {
-        Park park = new Park(new Attractions("Центрифуга", "10:00 - 20:00", 5));
-        park.addAttractions(new Attractions("Цепная карусель", "10:00 - 20:00", 4.5));
-        Park park1 = new Park(new Attractions("Гонки", "11:00 - 22:00", 15));
-        System.out.println(park);
-        park.getAttractionList().stream().forEach(s -> System.out.println(s));
-        System.out.println(park1);
+        Park park = new Park();
+        Park parkWithAttractions = new Park(park.new Attractions("Центрифуга", "10:00 - 20:00", 5));
 
+        Park park1 = new Park();
+        Park park1WithAttractions = new Park(park1.new Attractions("Гонки", "11:00 - 22:00", 15));
+
+        System.out.println(park1WithAttractions);
+        System.out.println(parkWithAttractions);
     }
 }
