@@ -2,12 +2,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Park {
+    private String startWorking;
+    private String endWorking;
     private Attractions attractions;
-    public Park(Attractions attractions) {
-       this.attractions = attractions;
+    public Park(String startWorking, String endWorking, Attractions attractions) {
+        this.startWorking = startWorking;
+        this.endWorking = endWorking;
+        this.attractions = attractions;
     }
 
-    public Park() {
+    public Park(String startWorking, String endWorking) {
+        this.startWorking = startWorking;
+        this.endWorking = endWorking;
     }
 
     public Attractions getAttractions() {
@@ -18,35 +24,72 @@ public class Park {
         this.attractions = attractions;
     }
 
+    public String getStartWorking() {
+        return startWorking;
+    }
+
+    public void setStartWorking(String startWorking) {
+        this.startWorking = startWorking;
+    }
+
+    public String getEndWorking() {
+        return endWorking;
+    }
+
+    public void setEndWorking(String endWorking) {
+        this.endWorking = endWorking;
+    }
+
     @Override
     public String toString() {
-        return this.getClass().getSimpleName().concat(" {" +
-                "attractions=" + attractions +
-                '}');
+        return "Park{" +
+                "startWorking='" + startWorking + '\'' +
+                ", endWorking='" + endWorking + '\'' +
+                ", attractions=" + attractions +
+                '}';
     }
 
     private class Attractions {
         private String name;
-        private String workingHours;
+        private String startWorking;
+        private String endWorking;
         private double cost;
 
-        public Attractions(String name, String workingHours, double cost) {
+        public Attractions(String name, String startWorking, String endWorking, double cost) {
             this.name = name;
-            this.workingHours = workingHours;
+            this.startWorking = startWorking;
+            this.endWorking = endWorking;
             this.cost = cost;
         }
 
         public Attractions() {}
 
-        public double getCost() {
-            return cost;
-        }
-        public String getWorkingHours() {
-            return workingHours;
+        public String getName() {
+            return name;
         }
 
-        public void setWorkingHours(String workingHours) {
-            this.workingHours = workingHours;
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getStartWorking() {
+            return startWorking;
+        }
+
+        public void setStartWorking(String startWorking) {
+            this.startWorking = startWorking;
+        }
+
+        public String getEndWorking() {
+            return endWorking;
+        }
+
+        public void setEndWorking(String endWorking) {
+            this.endWorking = endWorking;
+        }
+
+        public double getCost() {
+            return cost;
         }
 
         public void setCost(double cost) {
@@ -55,20 +98,23 @@ public class Park {
 
         @Override
         public String toString() {
-            return this.getClass().getSimpleName().concat(" {" +
-                    " name = '" + name + '\'' +
-                    ", workingHours = '" + workingHours + '\'' +
-                    ", cost = " + cost +
-                    " } ");
+            return "Attractions{" +
+                    "name='" + name + '\'' +
+                    ", startWorking='" + startWorking + '\'' +
+                    ", endWorking='" + endWorking + '\'' +
+                    ", cost=" + cost +
+                    '}';
         }
     }
 
     public static void main(String[] args) {
-        Park park = new Park();
-        Park parkWithAttractions = new Park(park.new Attractions("Центрифуга", "10:00 - 20:00", 5));
+        Park park = new Park("7:00", "23:00");
+        Park parkWithAttractions = new Park("7:00", "23:00",
+                park.new Attractions("Центрифуга", "10:00", "20:00", 5));
 
-        Park park1 = new Park();
-        Park park1WithAttractions = new Park(park1.new Attractions("Гонки", "11:00 - 22:00", 15));
+        Park park1 = new Park("8:00", "23:00");
+        Park park1WithAttractions = new Park("8:00", "23:00",
+                park1.new Attractions("Гонки", "11:00", "22:00", 15));
 
         System.out.println(park1WithAttractions);
         System.out.println(parkWithAttractions);
