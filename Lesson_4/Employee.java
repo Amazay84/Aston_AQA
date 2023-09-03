@@ -23,12 +23,14 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee: ".concat("\nfull name: ".concat(fullName))
+        return ("Employee: " +
+                " ").concat("\nfull name: ".concat(fullName))
                 .concat("\njobTitle: ".concat(jobTitle))
                 .concat("\nemail: ".concat(email))
                 .concat("\nphoneNumber: ".concat(String.valueOf(phoneNumber)))
                 .concat("\nsalary: ".concat(String.valueOf(salary)))
-                .concat("\nage: ".concat(age + "\n"));
+                .concat("\nage: ".concat(age + "\n" +
+                        "--------------------------------------"));
     }
     public static void main(String[] args) {
         Employee[] employees = new Employee[5];
