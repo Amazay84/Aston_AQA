@@ -105,18 +105,46 @@ public class Park {
                     ", cost=" + cost +
                     '}';
         }
+        
     }
+
+    public static class NestedAttractions {
+        private String name;
+        private String startWorking;
+        private String endWorking;
+        private double cost;
+
+        public NestedAttractions(String name, String startWorking, String endWorking, double cost) {
+            this.name = name;
+            this.startWorking = startWorking;
+            this.endWorking = endWorking;
+            this.cost = cost;
+        }
+
+        @Override
+        public String toString() {
+            return "NestedAttractions{" +
+                    "name='" + name + '\'' +
+                    ", startWorking='" + startWorking + '\'' +
+                    ", endWorking='" + endWorking + '\'' +
+                    ", cost=" + cost +
+                    '}';
+        }
+    }
+
 
     public static void main(String[] args) {
         Park park = new Park("7:00", "23:00");
+        Park.Attractions attraction = new Park("7:00", "23:00").new Attractions("Батут", "10:00", "20:00", 4);
+
         Park parkWithAttractions = new Park("7:00", "23:00",
-                park.new Attractions("Центрифуга", "10:00", "20:00", 5));
+                park.new Attractions("Центрифуга", "10:00", park.endWorking, 5));
 
-        Park park1 = new Park("8:00", "23:00");
-        Park park1WithAttractions = new Park("8:00", "23:00",
-                park1.new Attractions("Гонки", "11:00", "22:00", 15));
+        Park.NestedAttractions nestedAttractions = new Park.NestedAttractions("Комната смеха", "10:00", "20:00", 5);
 
-        System.out.println(park1WithAttractions);
-        System.out.println(parkWithAttractions);
+        System.out.println("Парк без атракционов - " + park + "\n");
+        System.out.println("Атракцион в парке - " + attraction + "\n");
+        System.out.println("Парк с атракционами - " + parkWithAttractions + "\n");
+        System.out.println("Атракционы \"передвижные\" - " + nestedAttractions);
     }
 }
