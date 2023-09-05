@@ -49,94 +49,47 @@ public class Park {
                 '}';
     }
 
-    private class Attractions {
-        private String name;
-        private String startWorking;
-        private String endWorking;
-        private double cost;
+    private class Attractions extends AbstractAttractions{
 
         public Attractions(String name, String startWorking, String endWorking, double cost) {
-            this.name = name;
-            this.startWorking = startWorking;
-            this.endWorking = endWorking;
-            this.cost = cost;
+            super(name, startWorking, endWorking, cost);
         }
-
-        public Attractions() {}
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getStartWorking() {
-            return startWorking;
-        }
-
-        public void setStartWorking(String startWorking) {
-            this.startWorking = startWorking;
-        }
-
-        public String getEndWorking() {
-            return endWorking;
-        }
-
-        public void setEndWorking(String endWorking) {
-            this.endWorking = endWorking;
-        }
-
-        public double getCost() {
-            return cost;
-        }
-
-        public void setCost(double cost) {
-            this.cost = cost;
-        }
-
         @Override
-        public String toString() {
-            return "Attractions{" +
-                    "name='" + name + '\'' +
-                    ", startWorking='" + startWorking + '\'' +
-                    ", endWorking='" + endWorking + '\'' +
-                    ", cost=" + cost +
-                    '}';
+        void printInfo(AbstractAttractions attractions) {
+            System.out.println(attractions);
         }
-        
     }
 
-    public static class NestedAttractions {
-        private String name;
-        private String startWorking;
-        private String endWorking;
-        private double cost;
+    public static class NestedAttractions extends AbstractAttractions {
 
         public NestedAttractions(String name, String startWorking, String endWorking, double cost) {
-            this.name = name;
-            this.startWorking = startWorking;
-            this.endWorking = endWorking;
-            this.cost = cost;
+            super(name, startWorking, endWorking, cost);
         }
-
         @Override
-        public String toString() {
-            return "NestedAttractions{" +
-                    "name='" + name + '\'' +
-                    ", startWorking='" + startWorking + '\'' +
-                    ", endWorking='" + endWorking + '\'' +
-                    ", cost=" + cost +
-                    '}';
+        void printInfo(AbstractAttractions attractions) {
+            System.out.println(attractions);
         }
     }
+    AbstractAttractions anonimousAttractions = new AbstractAttractions("Комната страха", "23:00", "06:00", 5) {
+        @Override
+        void printInfo(AbstractAttractions attractions) {
+            System.out.println(attractions);
+        }
+    };
 
+    public AbstractAttractions getAbstractAttractions() {
+        AbstractAttractions abstractAttractions = new AbstractAttractions("Комната отдыха", "08:00", "07:45", 1) {
+            @Override
+            void printInfo(AbstractAttractions attractions) {
+                System.out.println(attractions);
+            }
+        };
+        return abstractAttractions;
+    }
 
     public static void main(String[] args) {
         Park park = new Park("7:00", "23:00");
         Park.Attractions attraction = new Park("7:00", "23:00").new Attractions("Батут", "10:00", "20:00", 4);
-
         Park parkWithAttractions = new Park("7:00", "23:00",
                 park.new Attractions("Центрифуга", "10:00", park.endWorking, 5));
 
@@ -145,6 +98,8 @@ public class Park {
         System.out.println("Парк без атракционов - " + park + "\n");
         System.out.println("Атракцион в парке - " + attraction + "\n");
         System.out.println("Парк с атракционами - " + parkWithAttractions + "\n");
-        System.out.println("Атракционы \"передвижные\" - " + nestedAttractions);
+        System.out.println("Атракционы \"передвижные\" - " + nestedAttractions + "\n");
+        park.anonimousAttractions.printInfo(park.anonimousAttractions);
+        park.getAbstractAttractions().printInfo(park.getAbstractAttractions());
     }
 }
