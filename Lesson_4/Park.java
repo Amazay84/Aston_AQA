@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Park {
     private String startWorking;
     private String endWorking;
@@ -70,7 +67,7 @@ public class Park {
             System.out.println(attractions);
         }
     }
-    AbstractAttractions anonimousAttractions = new AbstractAttractions("Комната страха", "23:00", "06:00", 5) {
+    AbstractAttractions anonymousAttractions = new AbstractAttractions("Комната страха", "23:00", "06:00", 5) {
         @Override
         void printInfo(AbstractAttractions attractions) {
             System.out.println(attractions);
@@ -99,7 +96,7 @@ public class Park {
         System.out.println("Атракцион в парке - " + attraction + "\n");
         System.out.println("Парк с атракционами - " + parkWithAttractions + "\n");
         System.out.println("Атракционы \"передвижные\" - " + nestedAttractions + "\n");
-        park.anonimousAttractions.printInfo(park.anonimousAttractions);
+        park.anonymousAttractions.printInfo(park.anonymousAttractions);
         park.getAbstractAttractions().printInfo(park.getAbstractAttractions());
     }
 }
