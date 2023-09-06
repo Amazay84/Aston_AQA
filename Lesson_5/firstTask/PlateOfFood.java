@@ -14,4 +14,15 @@ public class PlateOfFood {
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
+
+    public boolean capacityAfterEating(int eaten) {
+        int temp = capacity - eaten;
+        if (temp < 0) return false;
+        capacity -= eaten;
+        return true;
+    }
+
+    public void fillingCapacity(int fil) {
+        capacity += fil;
+    }
 }

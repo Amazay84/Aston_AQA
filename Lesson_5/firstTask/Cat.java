@@ -4,10 +4,24 @@ public class Cat extends Animal {
     private static final int MAX_RUNNING_LENGTH = 200; //meters
     private static final int MAX_SWIMMING_LENGTH = 0;
     private static int catsCounter;
+    private boolean isHungry;
+    private int appetit;
 
-    public Cat(String catName) {
+    public Cat(String catName, int appetit) {
         super(catName);
+        this.isHungry = true;
+        this.appetit = appetit;
         catsCounter++;
+    }
+
+    public String satiety() {
+        return isHungry ? "голоден" : "сыт";
+    }
+
+    public void eat(PlateOfFood plateOfFood) {
+        if (this.isHungry && plateOfFood.capacityAfterEating(appetit)) {
+            isHungry = false;
+        }
     }
 
 
