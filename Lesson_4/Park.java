@@ -70,7 +70,7 @@ public class Park {
     AbstractAttractions anonymousAttractions = new AbstractAttractions("Комната страха", "23:00", "06:00", 5) {
         @Override
         void printInfo(AbstractAttractions attractions) {
-            System.out.println(attractions);
+            System.out.println("Анаонимный атракцион - " + attractions);
         }
     };
 
@@ -78,7 +78,7 @@ public class Park {
         AbstractAttractions abstractAttractions = new AbstractAttractions("Комната отдыха", "08:00", "07:45", 1) {
             @Override
             void printInfo(AbstractAttractions attractions) {
-                System.out.println(attractions);
+                System.out.println("Локальный атракцион - " + attractions);
             }
         };
         return abstractAttractions;
@@ -92,10 +92,10 @@ public class Park {
 
         Park.NestedAttractions nestedAttractions = new Park.NestedAttractions("Комната смеха", "10:00", "20:00", 5);
 
-        System.out.println("Парк без атракционов - " + park + "\n");
-        System.out.println("Атракцион в парке - " + attraction + "\n");
-        System.out.println("Парк с атракционами - " + parkWithAttractions + "\n");
-        System.out.println("Атракционы \"передвижные\" - " + nestedAttractions + "\n");
+        System.out.println("Парк без атракционов - " + park);
+        System.out.println("Атракцион в парке - " + attraction);
+        System.out.println("Парк с атракционами - " + parkWithAttractions);
+        System.out.println("Атракционы \"передвижные\" - " + nestedAttractions);
         park.anonymousAttractions.printInfo(park.anonymousAttractions);
         park.getAbstractAttractions().printInfo(park.getAbstractAttractions());
     }
