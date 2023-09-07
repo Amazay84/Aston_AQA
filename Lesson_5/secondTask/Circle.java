@@ -9,17 +9,14 @@ public class Circle extends AbstractFigure {
     }
 
     @Override
-    public float calculatePerimeter() {
-        return (float) Math.PI * radius * 2;
-    }
-
-    @Override
     public float calculateSquare() {
         return (float) Math.PI * radius * radius;
     }
 
-//    @Override
-//    public String toString() {
-//        return super.toString();
-//    }
+    @Override
+    public String toString() {
+        return "Circle [" +
+                "Периметр = " + super.calculateCirclePerimeter(radius) +
+                super.toString();
+    }
 }

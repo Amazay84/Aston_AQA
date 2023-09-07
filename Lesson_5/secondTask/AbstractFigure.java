@@ -1,6 +1,6 @@
 package secondTask;
 
-public abstract class AbstractFigure implements CalculateSquare, CalculatePerimeter {
+public abstract class AbstractFigure implements Calculate {
     private String borderColor;
     private String filingColor;
 
@@ -18,11 +18,8 @@ public abstract class AbstractFigure implements CalculateSquare, CalculatePerime
     }
     @Override
     public String toString() {
-        return getClass().getSimpleName() + " [" +
-                "Периметр = " + calculatePerimeter() +
-                ", Площадь = " + calculateSquare() +
+        return  ", Площадь = " + calculateSquare() +
                 ", Цвет границ = " + getBorderColor() +
                 ", Цвет фона = " + getFilingColor() + ']';
     }
-
 }

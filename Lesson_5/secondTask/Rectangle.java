@@ -12,18 +12,17 @@ public class Rectangle extends AbstractFigure {
         this.sideA = sideA;
         this.sideB = sideB;
     }
-    public Rectangle(float sideA, float sideB) {
-        this(sideA, sideB, "", "");
-    }
-
-    @Override
-    public float calculatePerimeter() {
-        return sideA + sideB;
-    }
 
     @Override
     public float calculateSquare() {
         return sideA * sideB;
+    }
+
+    @Override
+    public String toString() {
+        return "Rectangle [" +
+                "Периметр = " + super.calculateRectanglePerimeter(sideA, sideB) +
+                super.toString();
     }
 
 }
