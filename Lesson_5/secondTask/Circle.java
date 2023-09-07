@@ -1,9 +1,10 @@
 package secondTask;
 
-public class Circle implements CalculateSquare, CalculatePerimeter {
+public class Circle extends AbstractFigure {
     private float radius;
 
-    public Circle(float radius) {
+    public Circle(float radius, String borderColor, String filingColor) {
+        super(borderColor, filingColor);
         this.radius = radius;
     }
 
@@ -16,4 +17,9 @@ public class Circle implements CalculateSquare, CalculatePerimeter {
     public float calculateSquare() {
         return (float) Math.PI * radius * radius;
     }
+
+//    @Override
+//    public String toString() {
+//        return super.toString();
+//    }
 }
