@@ -32,16 +32,4 @@ public class Employee {
                 .concat("\nage: ".concat(age + "\n" +
                         "--------------------------------------"));
     }
-    public static void main(String[] args) {
-        Employee[] employees = new Employee[5];
-        employees[0] = new Employee("Иванова Светлана Ивановна", "Инспектор по кадрам", "ivanova@mail.ru", 333445566, 80000, 27);
-        employees[1] = new Employee("Кравцов Дмитрий Евгеньевич", "Системный администратор", "kravtsov@mail.ru", 666554433, 90000, 34);
-        employees[2] = new Employee("Кравцова Екатерина Васильевна", "Бухгалтер", "kravtsova@mail.ru", 666554434, 80000, 29);
-        employees[3] = new Employee("Романова Ангелина Аркадьевна", "Главный бухгалтер", "romanova@mail.ru", 111222333, 150000, 45);
-        employees[4] = new Employee("Давыденко Михаил Петрович", "Директор", "bigboss@mail.ru", 777777777, 300000, 50);
-        Arrays.stream(employees).
-                sorted((e1, e2) -> Integer.compare(e2.getAge(), e1.getAge())).
-                filter(e -> e.getAge() > 40).
-                forEach(System.out::println);
-    }
 }
