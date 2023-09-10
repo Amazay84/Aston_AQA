@@ -75,7 +75,7 @@ public class AppData {
         for (int i = 0; i < data.length; i++) {
             for (int j = 0; j < data[i].length; j++) {
                 sb.append(data[i][j]);
-                if (j < data[j].length - 1) {
+                if (j < header.length - 1) {
                     sb.append(";,");
                 } else {
                     sb.append(System.lineSeparator());
@@ -83,7 +83,7 @@ public class AppData {
             }
         }
         byte[] output = sb.toString().getBytes();
-        try (FileOutputStream fos = new FileOutputStream("c:\\Users\\Администратор\\Desktop\\file.csv")) {
+        try (FileOutputStream fos = new FileOutputStream("newFile.csv")) {
             fos.write(output);
         } catch (IOException e) {
             e.printStackTrace();

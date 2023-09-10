@@ -10,7 +10,7 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\file.csv">
+        <entry key="\newFile.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
