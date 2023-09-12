@@ -24,9 +24,6 @@ public class AppData {
     }
 
     public static AppData getAppData(File file) throws IOException {
-        if (file.exists()) {
-            file.createNewFile();
-        }
 
         StringBuilder sb = new StringBuilder();
         String headersString = "";
