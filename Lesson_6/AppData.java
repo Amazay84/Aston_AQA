@@ -23,6 +23,7 @@ public class AppData {
         return data;
     }
 
+    //преобразование таблицы в массивы
     public static AppData getAppData(File file) throws IOException {
 
         StringBuilder sb = new StringBuilder();
@@ -59,6 +60,7 @@ public class AppData {
         return new AppData(header, data);
     }
 
+    //преобразование массивов в таблицу
     public static String saveAppData(AppData appData) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < header.length; i++) {
@@ -79,7 +81,7 @@ public class AppData {
                 }
             }
         }
-        byte[] output = sb.toString().getBytes();
+        byte[] output = sb.toString().trim().getBytes();
         try (FileOutputStream fos = new FileOutputStream("newFile.csv")) {
             fos.write(output);
         } catch (IOException e) {
