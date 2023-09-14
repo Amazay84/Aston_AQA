@@ -16,8 +16,8 @@ public class Main {
                 try {
                     summ += Integer.parseInt(array[i][j]);
                 } catch (NumberFormatException e) {
-                    throw new MyArrayDataException(
-                            String.format("Data at row[%d] cell[%d] don't contains number.", i, j));
+                    System.out.printf("Data at row[%d] cell[%d] don't contains number.", i, j);
+                    System.out.println();
                 }
             }
         }
@@ -37,8 +37,8 @@ public class Main {
                 {"5", "6", "7", "8"}};
         String[][] incorrectData = {{"1", "2", "3", "4"},
                 {"5", "6", "7", "Java"},
-                {"1", "2", "3", "4"},
-                {"5", "6", "7", "8"}};
+                {"1", "2", "Java", "4"},
+                {"5", "Java", "7", "8"}};
 
         try {
             Main.myExceptionHandler(incorrectRows);
