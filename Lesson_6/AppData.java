@@ -82,7 +82,7 @@ public class AppData {
             }
         }
         byte[] output = sb.toString().trim().getBytes();
-        try (FileOutputStream fos = new FileOutputStream("newFile.csv")) {
+        try (FileOutputStream fos = new FileOutputStream("file.csv")) {
             fos.write(output);
         } catch (IOException e) {
             e.printStackTrace();
