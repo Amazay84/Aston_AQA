@@ -9,15 +9,16 @@ public class Main {
         List<String> arrList = Arrays.asList(arr);
         Map<String, Integer> listMap = new HashMap<>();
 
-        arrList.forEach(k -> listMap.put(k, listMap.getOrDefault(k, 0) + 1));
+//        arrList.forEach(s -> listMap.put(k, listMap.getOrDefault(s, 0) + 1));
+//        arrList.forEach(s -> listMap.compute(s, (k, v) -> v == null ? 1 : v + 1));
 
-//        for (String s : arrList) {
-//            if (listMap.containsKey(s)) {
-//                listMap.put(s, listMap.get(s) + 1);
-//            } else {
-//                listMap.put(s, 1);
-//            }
-//        }
+        for (String s : arrList) {
+            if (listMap.containsKey(s)) {
+                listMap.put(s, listMap.get(s) + 1);
+            } else {
+                listMap.put(s, 1);
+            }
+        }
 
         listMap.entrySet().
                 forEach(entry ->
