@@ -3,6 +3,7 @@ import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
+        //first task
         String[] arr = {"Hello", "Java", "Hello", "World", "Goodbye", "Welcome", "Java", "Friday",
                 "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
@@ -23,6 +24,20 @@ public class Main {
         listMap.entrySet().
                 forEach(entry ->
                         System.out.println("Word: " + entry.getKey() +
-                                " | Repeat count: " + entry.getValue()));
+                                " | Repetition count: " + entry.getValue()));
+
+        //second task
+
+        TelephoneDirectory td = new TelephoneDirectory();
+        td.add("Ivanov: 999888999");
+        td.add("Ivanov: 888999888");
+        td.add("Petrov: 8989898989");
+        td.add("Petrov: 9898989898");
+        td.add("Petrov: 9898989898");
+        td.add("Sidorov: 9090909090");
+        td.add("Sidorov: 000999999000");
+        System.out.println(td.get("Ivanov"));
+        System.out.println(td.get("Petrov"));
+        System.out.println(td.get("Sidorov"));
     }
 }
