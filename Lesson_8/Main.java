@@ -4,9 +4,8 @@ import java.util.stream.Collectors;
 public class Main {
     public static void main(String[] args) {
         //first task
-        String[] arr = {"Hello", "Java", "Hello", "World", "Goodbye", "Welcome", "Java", "Friday",
-                "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-
+        String str = "ехал грека через реку видит грека в реке рак сунул грека руку в реку рак за руку греку цап";
+        String[] arr = str.split(" ");
         List<String> arrList = Arrays.asList(arr);
         Map<String, Integer> listMap = new HashMap<>();
 
@@ -29,13 +28,13 @@ public class Main {
         //second task
 
         TelephoneDirectory td = new TelephoneDirectory();
-        td.add("Ivanov: 999888999");
-        td.add("Ivanov: 888999888");
-        td.add("Petrov: 8989898989");
-        td.add("Petrov: 9898989898");
-        td.add("Petrov: 9898989898");
-        td.add("Sidorov: 9090909090");
-        td.add("Sidorov: 000999999000");
+        td.add("Ivanov: +375298889998");
+        td.add("Ivanov: +375296888999");
+        td.add("Petrov: +375298989898");
+        td.add("Petrov: +375299898989");
+        td.add("Petrov: +375299898989");
+        td.add("Sidorov: +375299090909");
+        td.add("Sidorov: +375290009999");
         System.out.println(td.get("Ivanov"));
         System.out.println(td.get("Petrov"));
         System.out.println(td.get("Sidorov"));
