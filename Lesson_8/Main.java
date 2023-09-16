@@ -7,11 +7,8 @@ public class Main {
         String str = "ехал грека через реку видит грека в реке рак сунул грека руку в реку рак за руку греку цап";
         String[] arr = str.split(" ");
         List<String> arrList = Arrays.asList(arr);
+
         Map<String, Integer> listMap = new HashMap<>();
-
-//        arrList.forEach(s -> listMap.put(k, listMap.getOrDefault(s, 0) + 1));
-//        arrList.forEach(s -> listMap.compute(s, (k, v) -> v == null ? 1 : v + 1));
-
         for (String s : arrList) {
             if (listMap.containsKey(s)) {
                 listMap.put(s, listMap.get(s) + 1);
@@ -24,6 +21,15 @@ public class Main {
                 forEach(entry ->
                         System.out.println("Word: " + entry.getKey() +
                                 " | Repetition count: " + entry.getValue()));
+        System.out.println("-----------------------------------------------------------------");
+
+        for (int i = 0; i < arrList.size(); i++) {
+            if (!arrList.subList(0, i).contains(arrList.get(i))) {
+                System.out.printf("Word \"%s\" has repeated %d times.\n", arrList.get(i),
+                        Collections.frequency(arrList, arrList.get(i)));
+            }
+        }
+        System.out.println("--------------------------------------------------------------");
 
         //second task
 
