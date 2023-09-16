@@ -9,14 +9,22 @@ public class TelephoneDirectory {
         this.telephoneBook = new HashMap<>();
     }
 
-    public void add(String nameAmdPhone) {
-        String[] splitter = nameAmdPhone.trim().split(":");
+    public void add(String nameAndPhone) {
+        if (nameAndPhone.isEmpty()) {
+            System.out.println("Не верный формат имени или телефона!");
+            return;
+        }
+        String[] splitter = nameAndPhone.trim().split(":");
         Set<String> phones = new HashSet<>();
-            if (!telephoneBook.containsKey(splitter[0].trim())) {
-                phones.add(splitter[1].trim());
-                telephoneBook.put(splitter[0].trim(), phones);
-            } else {
-                telephoneBook.get(splitter[0].trim()).add(splitter[1].trim());
+        try {
+                if (!telephoneBook.containsKey(splitter[0].trim())) {
+                    phones.add(splitter[1].trim());
+                    telephoneBook.put(splitter[0].trim(), phones);
+                } else {
+                    telephoneBook.get(splitter[0].trim()).add(splitter[1].trim());
+                }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Не верный формат имени или телефона!");
         }
     }
 

@@ -41,6 +41,10 @@ public class Main {
         td.add("Petrov: +375299898989");
         td.add("Sidorov: +375299090909");
         td.add("Sidorov: +375290009999");
+        td.add("");
+        td.add("Sidorov: ");
+        td.add(" +375290009999");
+
         System.out.println(td.get("Ivanov"));
         System.out.println(td.get("Petrov"));
         System.out.println(td.get("Sidorov"));
