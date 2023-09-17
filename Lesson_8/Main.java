@@ -41,12 +41,21 @@ public class Main {
         td.add("Petrov: +375299898989");
         td.add("Sidorov: +375299090909");
         td.add("Sidorov: +375290009999");
+        td.add("Ivanov-Иванов: +375296888990");
+
         td.add("");
         td.add("Sidorov: ");
         td.add(" +375290009999");
+        td.add("q: 11");
+        td.add("qwe: 123");
+        td.add("123: qwqe");
+        td.add("qwe: qwe");
+
+
 
         System.out.println(td.get("Ivanov"));
         System.out.println(td.get("Petrov"));
         System.out.println(td.get("Sidorov"));
+        System.out.println(td.get("Ivanov-Иванов"));
     }
 }

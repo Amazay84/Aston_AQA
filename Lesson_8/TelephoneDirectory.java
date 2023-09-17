@@ -11,18 +11,27 @@ public class TelephoneDirectory {
 
     public void add(String nameAndPhone) {
         if (nameAndPhone.isEmpty()) {
-            System.out.println("Не верный формат имени или телефона!");
+            System.out.println("Введите фамилию и телефон контакта!");
             return;
         }
+
         String[] splitter = nameAndPhone.trim().split(":");
+
         Set<String> phones = new HashSet<>();
         try {
-                if (!telephoneBook.containsKey(splitter[0].trim())) {
-                    phones.add(splitter[1].trim());
-                    telephoneBook.put(splitter[0].trim(), phones);
-                } else {
-                    telephoneBook.get(splitter[0].trim()).add(splitter[1].trim());
-                }
+
+            if (!splitter[0].trim().matches("[-A-Za-zА-Яа-я]{2,256}")) {
+                System.out.println("Введено не корректное имя.");
+                return;
+            } else if (!splitter[1].trim().matches("[\\+\\d]{6,13}")) {
+                System.out.println("Введен не корректный номер телефона.");
+                return;
+            } else if (!telephoneBook.containsKey(splitter[0].trim())) {
+                phones.add(splitter[1].trim());
+                telephoneBook.put(splitter[0].trim(), phones);
+            } else {
+                telephoneBook.get(splitter[0].trim()).add(splitter[1].trim());
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Не верный формат имени или телефона!");
         }
