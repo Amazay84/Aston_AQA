@@ -23,7 +23,9 @@ public class TelephoneDirectory {
             if (!splitter[0].trim().matches("[-A-Za-zА-Яа-я]{2,256}")) {
                 System.out.println("Введено не корректное имя.");
                 return;
-            } else if (!splitter[1].trim().matches("[\\+\\d]{6,13}")) {
+            } else if (!splitter[1].trim().
+                    matches("^\\+?(\\d{1,3})?[- .]?\\(?(?:\\d{2,3})\\)?[- .]?\\d\\d\\d[- .]?\\d\\d\\d\\d$")) {
+                //регулярку нагуглил
                 System.out.println("Введен не корректный номер телефона.");
                 return;
             } else if (!telephoneBook.containsKey(splitter[0].trim())) {
