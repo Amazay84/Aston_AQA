@@ -1,6 +1,4 @@
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class TelephoneDirectory {
     private HashMap<String, Set<String>> telephoneBook;
@@ -44,5 +42,25 @@ public class TelephoneDirectory {
         sb.append(name + ": ");
         telephoneBook.get(name).forEach(phone -> sb.append(phone + " | "));
         return sb.toString();
+    }
+
+    public String getList() {
+        StringBuilder sb = new StringBuilder();
+        telephoneBook.entrySet().stream().sorted((e1, e2) -> e1.getKey().compareTo(e2.getKey())).
+                forEach(e -> sb.append(this.get(e.getKey())).append("\n"));
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TelephoneDirectory)) return false;
+        TelephoneDirectory that = (TelephoneDirectory) o;
+        return Objects.equals(telephoneBook, that.telephoneBook);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(telephoneBook);
     }
 }

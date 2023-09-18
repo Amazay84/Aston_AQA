@@ -51,11 +51,34 @@ public class Main {
         td.add("123: qwqe");
         td.add("qwe: qwe");
 
-
-
         System.out.println(td.get("Ivanov"));
         System.out.println(td.get("Petrov"));
         System.out.println(td.get("Sidorov"));
         System.out.println(td.get("Ivanov-Иванов"));
+
+        System.out.println();
+        System.out.println(td.getList());
+
+        System.out.println();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Введите \"ADD\" для добавления, \"LIST\" для просмотра списка");
+        while (true) {
+            String in = sc.nextLine();
+            if (in.equals("EXIT")) {
+                break;
+            }
+            UserInput userInput = UserInput.parseInput(in);
+            if (userInput.getCmd().toUpperCase().equals("ADD") || userInput.getCmd().toUpperCase().equals("LIST")) {
+                switch (userInput.getCmd().toUpperCase()) {
+                    case "ADD":
+                        td.add(userInput.getInput());
+                        break;
+                    case "LIST":
+                        System.out.println(td.getList());
+                }
+            } else {
+                System.out.println("Нет такой команды. Введите \"ADD\" для добавления, \"LIST\" для просмотра списка");
+            }
+        }
     }
 }
