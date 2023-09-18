@@ -61,23 +61,23 @@ public class Main {
 
         System.out.println();
         Scanner sc = new Scanner(System.in);
-        System.out.println("Введите \"ADD\" для добавления, \"LIST\" для просмотра списка");
+        System.out.println("Введите \"ADD\" для добавления, \"LIST\" для просмотра списка, \"EXIT\" для выхода.");
         while (true) {
             String in = sc.nextLine();
             if (in.equals("EXIT")) {
                 break;
             }
             UserInput userInput = UserInput.parseInput(in);
-            if (userInput.getCmd().toUpperCase().equals("ADD") || userInput.getCmd().toUpperCase().equals("LIST")) {
-                switch (userInput.getCmd().toUpperCase()) {
-                    case "ADD":
-                        td.add(userInput.getInput());
-                        break;
-                    case "LIST":
-                        System.out.println(td.getList());
-                }
-            } else {
-                System.out.println("Нет такой команды. Введите \"ADD\" для добавления, \"LIST\" для просмотра списка");
+            switch (userInput.getCmd().toUpperCase()) {
+                case "ADD":
+                    td.add(userInput.getInput());
+                    break;
+                case "LIST":
+                    System.out.println(td.getList());
+                    break;
+                default:
+                    System.out.println("Нет такой команды. Введите \"ADD\" для добавления, " +
+                            "\"LIST\" для просмотра списка, \"EXIT\" для выхода.");
             }
         }
     }
