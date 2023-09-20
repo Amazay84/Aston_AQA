@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StreamOps {
     private List<Integer> numbers;
@@ -20,11 +21,24 @@ public class StreamOps {
         return numbers;
     }
 
-    public long getEvenCount(List<Integer> numbers) {
+    public static long getEvenCount(List<Integer> numbers) {
         return numbers.stream().filter(n -> n % 2 == 0).count();
     }
 
-    public long getStrCount(String predicate, String... arg) {
+    public static long getStrPredicateCount(String predicate, String... arg) {
         return Arrays.stream(arg).filter(s -> s.contains(predicate)).count();
+    }
+
+    public static String getStrFirst(String... arg) {
+        return Arrays.stream(arg).findFirst().orElse("0");
+    }
+
+    public static String getStrLast(String... arg) {
+        return Arrays.stream(arg).skip(arg.length - 1).findAny().orElse("0");
+    }
+
+    public static String[] stringToArr(List<String> strings) {
+        String[] result = strings.stream().sorted().collect(Collectors.toList()).toArray(new String[strings.size()]);
+        return result;
     }
 }
