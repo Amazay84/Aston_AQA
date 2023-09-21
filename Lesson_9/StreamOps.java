@@ -39,9 +39,7 @@ public class StreamOps {
 
     public static String[] stringToArr(List<String> strings) {
         return strings.stream().
-                map(s -> Integer.parseInt(s.substring(1, s.length()))).
-                sorted((o1, o2) -> o1 - o2).
-                map(s -> ("f".concat(String.valueOf(s)))).
+                sorted((o1, o2) -> Integer.compare(o1.hashCode(), o2.hashCode())).
                 collect(Collectors.toList()).
                 toArray(new String[strings.size()]);
     }
