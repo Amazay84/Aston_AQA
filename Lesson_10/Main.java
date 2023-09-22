@@ -13,8 +13,7 @@ public class Main {
 
         Box<Apple> appleBox = new Box<>(new ArrayList<>(Arrays.asList(apple1, apple2, apple3)));
         Box<Orange> orangeBox = new Box<>(new ArrayList<>(Arrays.asList(orange1, orange2, orange3)));
-
-        System.out.println(appleBox.compare(orangeBox));
+        System.out.printf("Равны ли коробки по весу? | %b\n", appleBox.compare(orangeBox));
         System.out.println("---------------------------------------");
 
         Box<Apple> appleBoxReserved= new Box<>(new ArrayList<>());
