@@ -9,7 +9,7 @@ public class Box <T extends Fruit> {
         this.fruits = fruits;
     }
 
-    public List<T> getFruits() {
+    public List<? extends T> getFruits() {
         return fruits;
     }
 

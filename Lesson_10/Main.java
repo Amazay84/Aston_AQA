@@ -24,6 +24,8 @@ public class Main {
         System.out.println(orangeBox);
         orangeBox.addFruit(new Orange());
         System.out.println(orangeBox);
-
+        orangeBox.getFruits().
+                stream().
+                forEach(System.out::println);
     }
 }
