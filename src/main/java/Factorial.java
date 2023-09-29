@@ -1,6 +1,6 @@
 import java.util.stream.LongStream;
 
-public class Fucktorial {
+public class Factorial {
     public long calc(int f) {
         if (f < 2) {
             return 1;

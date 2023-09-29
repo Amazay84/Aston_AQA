@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.*;
 
-public class FucktorialTests {
-    private Fucktorial fucktorial;
+public class FactorialTests {
+    private Factorial factorial;
     @BeforeAll
     static void startMsg() {
         System.out.println("Start TEST");
@@ -12,18 +12,18 @@ public class FucktorialTests {
     }
     @BeforeEach
     void initialise() {
-        fucktorial = new Fucktorial();
+        factorial = new Factorial();
     }
     @AfterEach
     void clean() {
-        fucktorial = null;
+        factorial = null;
     }
     @Test
     void calcFucktorialTest() {
         System.out.println("Expected: " + "362880"
                 + System.lineSeparator() +
                 "Actual: " +
-                fucktorial.calc(9));
-        Assertions.assertEquals(362880, fucktorial.calc(9));
+                factorial.calc(9));
+        Assertions.assertEquals(362880, factorial.calc(9));
     }
 }
