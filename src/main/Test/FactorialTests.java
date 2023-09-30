@@ -1,5 +1,8 @@
 import org.junit.jupiter.api.*;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class FactorialTests {
     private Factorial factorial;
     @BeforeAll
@@ -11,19 +14,22 @@ public class FactorialTests {
         System.out.println("End TEST");
     }
     @BeforeEach
-    void initialise() {
+    void setUp() {
         factorial = new Factorial();
     }
     @AfterEach
-    void clean() {
+    void tearDown() {
         factorial = null;
     }
     @Test
-    void calcFucktorialTest() {
-        System.out.println("Expected: " + "362880"
-                + System.lineSeparator() +
-                "Actual: " +
-                factorial.calc(9));
-        Assertions.assertEquals(362880, factorial.calc(9));
+    void groupAssertions() {
+        assertAll("factorial",
+                () -> assertEquals(1, factorial.calc(0)),
+                () -> assertEquals(1, factorial.calc(1)),
+                () -> assertEquals(2, factorial.calc(2)),
+                () -> assertEquals(362880, factorial.calc(9))
+        );
     }
+
+
 }
