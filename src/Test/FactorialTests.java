@@ -24,10 +24,22 @@ public class FactorialTests {
     @Test
     void groupAssertions() {
         assertAll("factorial",
-                () -> assertEquals(1, factorial.calc(0)),
-                () -> assertEquals(1, factorial.calc(1)),
-                () -> assertEquals(2, factorial.calc(2)),
-                () -> assertEquals(362880, factorial.calc(9))
+                () -> {
+            assertEquals(1, factorial.calc(0));
+                    System.out.println(factorial.calc(0));
+                },
+                () -> {
+            assertEquals(1, factorial.calc(1));
+                    System.out.println(factorial.calc(1));
+                },
+                () -> {
+            assertEquals(2, factorial.calc(2));
+                    System.out.println(factorial.calc(2));
+                },
+                () -> {
+            assertEquals(362880, factorial.calc(9));
+                    System.out.println(factorial.calc(9));
+                }
         );
     }
 
