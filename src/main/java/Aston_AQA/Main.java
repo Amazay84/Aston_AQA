@@ -18,10 +18,10 @@ public class Main {
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
         driver.get("https://www.mts.by/");
 
-        List<WebElement> elements = driver.findElements(By.xpath("//section/div/h2"));
-        String elem = elements.stream().map(s -> s.getText()).collect(Collectors.joining());
-        System.out.println(elem);
+        List<WebElement> elements = driver.findElements(By.xpath("//section/div/div[2]/ul"));
+        elements.stream().forEach(System.out::println);
         String result = "Онлайн пополнение\n" +
                 "без комиссии";
+        driver.quit();
     }
 }

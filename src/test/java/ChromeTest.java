@@ -1,7 +1,4 @@
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class ChromeTest {
@@ -27,10 +25,17 @@ public class ChromeTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
         driver.get("https://www.mts.by/");
     }
+    @AfterEach
+    public void tearDown() {
+        driver.quit();
+    }
 
     @Test
     void checkBlockName() {
        List<WebElement> elements = driver.findElements(By.xpath("//section/div/h2"));
+       if (elements.isEmpty()) {
+           throw new NoSuchElementException();
+       }
        String actual = elements.stream().map(s -> s.getText()).collect(Collectors.joining());
        String expected = "Онлайн пополнение\n".concat("без комиссии");
        Assertions.assertEquals(expected, actual);
