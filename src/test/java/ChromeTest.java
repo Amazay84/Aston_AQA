@@ -1,3 +1,4 @@
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,20 +14,38 @@ import java.util.stream.Collectors;
 public class ChromeTest {
     private static WebDriver driver;
 
+//    @BeforeAll
+//    public static void setupSystem() {
+//        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver/chromedriver.exe");
+//    }
+//
+//    @BeforeEach
+//    public void setupDriver() {
+//        driver = new ChromeDriver();
+//        driver.manage().window().maximize();
+//        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
+//        driver.get("https://www.mts.by/");
+//    }
+//    @AfterEach
+//    public void tearDown() {
+//        driver.quit();
+//    }
+
     @BeforeAll
-    public static void setupSystem() {
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver/chromedriver.exe");
+    static void setupAll() {
+        WebDriverManager.chromedriver().setup();
     }
 
     @BeforeEach
-    public void setupDriver() {
+    void setup() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
         driver.get("https://www.mts.by/");
     }
+
     @AfterEach
-    public void tearDown() {
+    void teardown() {
         driver.quit();
     }
 
