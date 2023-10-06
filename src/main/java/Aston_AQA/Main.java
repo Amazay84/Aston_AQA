@@ -6,8 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.Duration;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -18,10 +16,10 @@ public class Main {
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
         driver.get("https://www.mts.by/");
 
-        List<WebElement> elements = driver.findElements(By.xpath("//section/div/div[2]/ul"));
-        elements.stream().forEach(System.out::println);
-        String result = "Онлайн пополнение\n" +
-                "без комиссии";
+        WebElement element = driver.findElement(By.xpath("//section/div/div[2]/ul/li[6]/img"));
+        String result = element.getAttribute("src");
+
+        System.out.println(result);
         driver.quit();
     }
 }
