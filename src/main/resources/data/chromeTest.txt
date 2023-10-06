@@ -4,3 +4,14 @@ https://www.mts.by/local/templates/new_design/assets/html/images/pages/index/pay
 https://www.mts.by/local/templates/new_design/assets/html/images/pages/index/pay/mastercard-secure.svg
 https://www.mts.by/local/templates/new_design/assets/html/images/pages/index/pay/belkart.svg
 https://www.mts.by/local/templates/new_design/assets/html/images/pages/index/pay/mir.svg
+
+    public static String getData(int index) {
+        File txt = new File("src/main/resources/data/chromeTest.txt");
+        List<String> attr = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(txt))) {
+            attr = br.lines().collect(Collectors.toList());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return attr.get(index);
+    }
