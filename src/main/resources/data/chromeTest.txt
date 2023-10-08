@@ -15,3 +15,6 @@ https://www.mts.by/local/templates/new_design/assets/html/images/pages/index/pay
         }
         return attr.get(index);
     }
+
+
+    iFrame.findElements(By.xpath("//div[@class='header__payment']/p"));
