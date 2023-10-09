@@ -48,6 +48,7 @@ public class ChromeTest {
         driver.manage().window().maximize();
         driver.get("https://www.mts.by/");
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
+        wait = new WebDriverWait(driver, Duration.ofMillis(5000));
         coocies = driver.manage().getCookies();
         coocies.stream().forEach(c -> driver.manage().addCookie(c));
         WebElement phone = elementWithXpath(driver, "//*[@id='connection-phone']");
@@ -85,20 +86,23 @@ public class ChromeTest {
 
     @Test
     void iFramePayButtonTest() {
-        WebDriver iFrame = driver.switchTo().frame(elementWithXpath(driver, "//iframe[@class='bepaid-iframe']"));
+//        WebDriver iFrame = driver.switchTo().frame(elementWithXpath(driver, "//iframe[@class='bepaid-iframe']"));
+        WebDriver iFrame = wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(
+                By.xpath("//iframe[@class='bepaid-iframe']")));
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 //        wait = new WebDriverWait(iFrame, Duration.ofMillis(5000));
-//        boolean isPayButtonLoaded = new WebDriverWait(iFrame, Duration.ofMillis(3000))
-//                .until(ExpectedConditions.attributeContains(By.xpath("//app-card-page" +
-//                buttonWithText("Оплатить  99.00 BYN")), "text()", "Оплатить  99.00 BYN"));
+//        WebElement iPayButtonLoaded = wait
+//                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//app-card-page" +
+//                buttonWithText(" Оплатить  99.00 BYN "))));
+//        System.out.println(iPayButtonLoaded.getText().toUpperCase());
         WebElement iPayButton = elementWithXpath(iFrame, "//app-card-page" +
-                buttonWithText("Оплатить  99.00 BYN"));
+                buttonWithText(" Оплатить  99.00 BYN "));
 //        assertTrue(isPayButtonLoaded);
-        assertEquals("Оплатить  99.00 BYN", iPayButton.getText());
+        assertEquals("Оплатить 99.00 BYN", iPayButton.getText());
     }
 
     @Test
@@ -133,10 +137,71 @@ public class ChromeTest {
     void connectionServicesNotesTest() {
         List<WebElement> payFormSelect = driver.findElements(
                 By.xpath("//section//ul[@class='select__list']/li"));
+        WebElement selectArrow = elementWithXpath(driver, "//section//button/span[@class='select__arrow']");
+        selectArrow.click();
         payFormSelect.get(0).click();
         WebElement phone = elementWithXpath(driver, "//form//input[@id='connection-phone']");
-        WebElement amount = elementWithXpath(driver, "//form//input[@id='connection-sum']");
+        WebElement sum = elementWithXpath(driver, "//form//input[@id='connection-sum']");
         WebElement email = elementWithXpath(driver, "//form//input[@id='connection-email']");
-
+        System.out.println(phone.getAttribute("placeholder")
+                + "\n" + sum.getAttribute("placeholder")
+                + "\n" + email.getAttribute("placeholder"));
+        assertAll(() -> assertEquals("Номер телефона", phone.getAttribute("placeholder")),
+                () -> assertEquals("Сумма", sum.getAttribute("placeholder")),
+                () -> assertEquals("E-mail для отправки чека", email.getAttribute("placeholder")));
     }
+
+    @Test
+    void internetServicesNotesTest() {
+        List<WebElement> payFormSelect = driver.findElements(
+                By.xpath("//section//ul[@class='select__list']/li"));
+        WebElement selectArrow = elementWithXpath(driver, "//section//button/span[@class='select__arrow']");
+        selectArrow.click();
+        payFormSelect.get(1).click();
+        WebElement subscriberNum = elementWithXpath(driver, "//form//input[@id='internet-phone']");
+        WebElement sum = elementWithXpath(driver, "//form//input[@id='connection-sum']");
+        WebElement email = elementWithXpath(driver, "//form//input[@id='internet-email']");
+        System.out.println(subscriberNum.getAttribute("placeholder")
+                + "\n" + sum.getAttribute("placeholder")
+                + "\n" + email.getAttribute("placeholder"));
+        assertAll(() -> assertEquals("Номер абонента", subscriberNum.getAttribute("placeholder")),
+                () -> assertEquals("Сумма", sum.getAttribute("placeholder")),
+                () -> assertEquals("E-mail для отправки чека", email.getAttribute("placeholder")));
+    }
+
+    @Test
+    void installmentServicesNotesTest() {
+        List<WebElement> payFormSelect = driver.findElements(
+                By.xpath("//section//ul[@class='select__list']/li"));
+        WebElement selectArrow = elementWithXpath(driver, "//section//button/span[@class='select__arrow']");
+        selectArrow.click();
+        payFormSelect.get(2).click();
+        WebElement scoreInstalment = elementWithXpath(driver, "//form//input[@id='score-instalment']");
+        WebElement sum = elementWithXpath(driver, "//form//input[@id='instalment-sum']");
+        WebElement email = elementWithXpath(driver, "//form//input[@id='instalment-email']");
+        System.out.println(scoreInstalment.getAttribute("placeholder")
+                + "\n" + sum.getAttribute("placeholder")
+                + "\n" + email.getAttribute("placeholder"));
+        assertAll(() -> assertEquals("Номер счета на 44", scoreInstalment.getAttribute("placeholder")),
+                () -> assertEquals("Сумма", sum.getAttribute("placeholder")),
+                () -> assertEquals("E-mail для отправки чека", email.getAttribute("placeholder")));
+    }
+    @Test
+    void debtServicesNotesTest() {
+        List<WebElement> payFormSelect = driver.findElements(
+                By.xpath("//section//ul[@class='select__list']/li"));
+        WebElement selectArrow = elementWithXpath(driver, "//section//button/span[@class='select__arrow']");
+        selectArrow.click();
+        payFormSelect.get(2).click();
+        WebElement accountNum = elementWithXpath(driver, "//form//input[@id='score-arrears']");
+        WebElement sum = elementWithXpath(driver, "//form//input[@id='arrears-sum']");
+        WebElement email = elementWithXpath(driver, "//form//input[@id='arrears-email']");
+        System.out.println(accountNum.getAttribute("placeholder")
+                + "\n" + sum.getAttribute("placeholder")
+                + "\n" + email.getAttribute("placeholder"));
+        assertAll(() -> assertEquals("Номер счета на 2073", accountNum.getAttribute("placeholder")),
+                () -> assertEquals("Сумма", sum.getAttribute("placeholder")),
+                () -> assertEquals("E-mail для отправки чека", email.getAttribute("placeholder")));
+    }
+
 }
