@@ -16,7 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ChromeTest {
     private static WebDriver driver;
-    Set<Cookie> coocies;
+
+    private WebDriverWait wait;
+    private Set<Cookie> coocies;
 
     private WebElement elementWithXpath(WebDriver driver, String text) {
         WebElement element = driver.findElement(By.xpath(text));
@@ -89,19 +91,19 @@ public class ChromeTest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+//        wait = new WebDriverWait(iFrame, Duration.ofMillis(5000));
+//        boolean isPayButtonLoaded = new WebDriverWait(iFrame, Duration.ofMillis(3000))
+//                .until(ExpectedConditions.attributeContains(By.xpath("//app-card-page" +
+//                buttonWithText("Оплатить  99.00 BYN")), "text()", "Оплатить  99.00 BYN"));
         WebElement iPayButton = elementWithXpath(iFrame, "//app-card-page" +
-                buttonWithText(" Оплатить  99.00 BYN "));
-        assertEquals("Оплатить 99.00 BYN", iPayButton.getText());
+                buttonWithText("Оплатить  99.00 BYN"));
+//        assertTrue(isPayButtonLoaded);
+        assertEquals("Оплатить  99.00 BYN", iPayButton.getText());
     }
 
     @Test
     void iFrameInputFieldsTextTest() {
         WebDriver iFrame = driver.switchTo().frame(elementWithXpath(driver, "//iframe[@class='bepaid-iframe']"));
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         WebElement isInputCardNumShown = elementWithXpath(iFrame, labelWithText("Номер карты"));
         WebElement isInputThermOfUsageShown = elementWithXpath(iFrame, labelWithText("Срок действия"));
         WebElement isInputCVCShown = elementWithXpath(iFrame, labelWithText("CVC"));
@@ -117,12 +119,8 @@ public class ChromeTest {
     @Test
     void paySysIconsTest() {
         WebDriver iFrame = driver.switchTo().frame(elementWithXpath(driver, "//iframe[@class='bepaid-iframe']"));
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        List<WebElement> icons = new WebDriverWait(iFrame, Duration.ofMillis(5000))
+        wait = new WebDriverWait(iFrame, Duration.ofMillis(5000));
+        List<WebElement> icons = wait
                 .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//app-input//img")));
         assertAll(() -> assertTrue(icons.get(0).isDisplayed()),
                 () -> assertTrue(icons.get(1).isDisplayed()),
@@ -131,4 +129,14 @@ public class ChromeTest {
                 () -> assertTrue(icons.get(4).isDisplayed()));
     }
 
+    @Test
+    void connectionServicesNotesTest() {
+        List<WebElement> payFormSelect = driver.findElements(
+                By.xpath("//section//ul[@class='select__list']/li"));
+        payFormSelect.get(0).click();
+        WebElement phone = elementWithXpath(driver, "//form//input[@id='connection-phone']");
+        WebElement amount = elementWithXpath(driver, "//form//input[@id='connection-sum']");
+        WebElement email = elementWithXpath(driver, "//form//input[@id='connection-email']");
+
+    }
 }
