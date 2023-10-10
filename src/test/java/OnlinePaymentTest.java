@@ -7,17 +7,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class OnlinePaymentTest {
     private static WebDriver driver;
-    Set<Cookie> coocies;
+    Set<Cookie> cookies;
 
     private WebElement elementWithXpath(WebDriver driver, String text) {
         return driver.findElement(By.xpath(text));
@@ -42,13 +40,13 @@ public class OnlinePaymentTest {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
         driver.get("https://www.mts.by/");
-        coocies = driver.manage().getCookies();
-        coocies.stream().forEach(c -> driver.manage().addCookie(c));
+        cookies = driver.manage().getCookies();
+        cookies.stream().forEach(c -> driver.manage().addCookie(c));
     }
 
     @AfterEach
     void teardown() {
-        coocies.stream().forEach(c-> driver.manage().deleteCookie(c));
+        cookies.stream().forEach(c-> driver.manage().deleteCookie(c));
         driver.quit();
     }
 
