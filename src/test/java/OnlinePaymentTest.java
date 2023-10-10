@@ -15,27 +15,23 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class OnlinePaymentTest {
     private static WebDriver driver;
-    Set<Cookie> cookies;
+    private static Set<Cookie> cookies;
 
-    private WebElement elementWithXpath(WebDriver driver, String text) {
+    private static WebElement elementWithXpath(WebDriver driver, String text) {
         return driver.findElement(By.xpath(text));
     }
 
-    private String buttonWithText(String text) {
+    private static String buttonWithText(String text) {
         return "//button[text()=".concat("'").concat(text).concat("'").concat("]");
     }
 
-    private String formWithId(String text) {
+    private static String formWithId(String text) {
         return "//form//input[@id=".concat("'").concat(text).concat("'").concat("]");
     }
 
     @BeforeAll
-    static void setupAll() {
+    static void setup() {
         WebDriverManager.chromedriver().setup();
-    }
-
-    @BeforeEach
-    void setup() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
@@ -44,8 +40,8 @@ public class OnlinePaymentTest {
         cookies.stream().forEach(c -> driver.manage().addCookie(c));
     }
 
-    @AfterEach
-    void teardown() {
+    @AfterAll
+    static void teardown() {
         cookies.stream().forEach(c-> driver.manage().deleteCookie(c));
         driver.quit();
     }
@@ -77,6 +73,8 @@ public class OnlinePaymentTest {
         String title = driver.getTitle();
         String expected = "Порядок оплаты и безопасность интернет платежей";
         Assertions.assertEquals(expected, title);
+        WebElement mainPage = elementWithXpath(driver, "//span[text()='Главная']");
+        mainPage.click();
     }
 
     @Test
@@ -100,5 +98,7 @@ public class OnlinePaymentTest {
         String actual = elements.stream().map(e -> e.getText()).collect(Collectors.joining("\n"));
         String expected = "99.00 BYN\n".concat("Оплата: Услуги связи Номер:375297777777");
         assertEquals(expected, actual);
+        WebElement closeButton = elementWithXpath(iFrame, "//app-back-navigation//svg-icon");
+        closeButton.click();
     }
 }
