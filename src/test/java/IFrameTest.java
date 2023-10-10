@@ -16,8 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class IFrameTest implements TestUtils {
     private static WebDriver driver;
+    WebDriver iFrame;
     private WebDriverWait wait;
-    private Set<Cookie> coocies;
+    private Set<Cookie> cookies;
     private final String XPATH_IFRAME = "//iframe[@class='bepaid-iframe']";
     @BeforeAll
     static void setupAll() {
@@ -31,8 +32,8 @@ public class IFrameTest implements TestUtils {
         driver.get("https://www.mts.by/");
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
         wait = new WebDriverWait(driver, Duration.ofMillis(5000));
-        coocies = driver.manage().getCookies();
-        coocies.stream().forEach(c -> driver.manage().addCookie(c));
+        cookies = driver.manage().getCookies();
+        cookies.stream().forEach(c -> driver.manage().addCookie(c));
         WebElement phone = elementWithXpath(driver, formWithId("connection-phone"));
         WebElement amount = elementWithXpath(driver, formWithId("connection-sum"));
         WebElement email = elementWithXpath(driver, formWithId("connection-email"));
@@ -44,17 +45,17 @@ public class IFrameTest implements TestUtils {
         email.click();
         email.sendKeys("test@test.by");
         nextButton.click();
+        iFrame = wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath(XPATH_IFRAME)));
     }
 
     @AfterEach
     void teardown() {
-        coocies.stream().forEach(c -> driver.manage().deleteCookie(c));
+        cookies.stream().forEach(c -> driver.manage().deleteCookie(c));
         driver.quit();
     }
 
     @Test
     void propsSownTest() {
-        WebDriver iFrame = driver.switchTo().frame(elementWithXpath(driver, XPATH_IFRAME));
         List<WebElement> elements = waitUntilBecomeVisibleAll(iFrame, "//div[@class='header__payment']/p");
         assertAll(() -> assertEquals("99.00 BYN", elements.get(0).getText()),
                 () -> assertEquals("Оплата: Услуги связи Номер:375297777777", elements.get(1).getText()));
@@ -62,7 +63,6 @@ public class IFrameTest implements TestUtils {
 
     @Test
     void iFramePayButtonTest() {
-        WebDriver iFrame = wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath(XPATH_IFRAME)));
         WebElement iPayButton = waitUntilBecomeVisible(
                 iFrame, "//app-card-page" + buttonWithText(" Оплатить  99.00 BYN "));
         assertEquals("Оплатить 99.00 BYN", iPayButton.getText());
@@ -70,7 +70,6 @@ public class IFrameTest implements TestUtils {
 
     @Test
     void iFrameInputFieldsTextTest() {
-        WebDriver iFrame = driver.switchTo().frame(elementWithXpath(driver, XPATH_IFRAME));
         WebElement isInputCardNumShown = waitUntilBecomeVisible(iFrame, labelWithText("Номер карты"));
         WebElement isInputThermOfUsageShown = waitUntilBecomeVisible(iFrame, labelWithText("Срок действия"));
         WebElement isInputCVCShown = elementWithXpath(iFrame, labelWithText("CVC"));
@@ -85,7 +84,6 @@ public class IFrameTest implements TestUtils {
 
     @Test
     void paySysIconsTest() {
-        WebDriver iFrame = driver.switchTo().frame(elementWithXpath(driver, XPATH_IFRAME));
         List<WebElement> icons = waitUntilBecomeVisibleAll(iFrame, "//app-input//img");
         assertAll(() -> assertTrue(icons.get(0).isDisplayed()),
                 () -> assertTrue(icons.get(1).isDisplayed()),
