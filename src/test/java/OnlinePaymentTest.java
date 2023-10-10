@@ -27,6 +27,10 @@ public class OnlinePaymentTest {
         return "//button[text()=".concat("'").concat(text).concat("'").concat("]");
     }
 
+    private String formWithId(String text) {
+        return "//form//input[@id=".concat("'").concat(text).concat("'").concat("]");
+    }
+
     @BeforeAll
     static void setupAll() {
         WebDriverManager.chromedriver().setup();
@@ -79,9 +83,9 @@ public class OnlinePaymentTest {
 
     @Test
     void continueButtonTest() {
-        WebElement phone = elementWithXpath(driver, "//form//input[@id='connection-phone']");
-        WebElement amount = elementWithXpath(driver, "//form//input[@id='connection-sum']");
-        WebElement email = elementWithXpath(driver, "//form//input[@id='connection-email']");
+        WebElement phone = elementWithXpath(driver, formWithId("connection-phone"));
+        WebElement amount = elementWithXpath(driver, formWithId("connection-sum"));
+        WebElement email = elementWithXpath(driver, formWithId("connection-email"));
         WebElement nextButton = driver.findElement(By.xpath(buttonWithText("Продолжить")));
         phone.click();
         phone.sendKeys("297777777");
