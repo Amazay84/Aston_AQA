@@ -1,45 +1,62 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 import java.util.List;
 import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class OnlinePaySysTest implements TestUtils {
+public class OnlinePaySysTest {
     private static WebDriver driver;
-    private Set<Cookie> cookies;
+    private static Set<Cookie> cookies;
     private WebElement selectArrow;
     private List<WebElement> payFormSelect;
-    private final String XPATH_SELECTOR = "//section//button/span[@class='select__arrow']";
-    private final String PAY_FORM_SELECTOR = "//section//ul[@class='select__list']/li";
-    @BeforeAll
-    static void setupAll() {
-        WebDriverManager.chromedriver().setup();
+
+    private WebElement elementWithXpath(WebDriver driver, String text) {
+        return driver.findElement(By.xpath(text));
     }
 
-    @BeforeEach
-    void setup() {
+    private String inputWithId(String text) {
+        return "//input[@id=".concat("'").concat(text).concat("'").concat("]");
+    }
+
+    private WebElement waitUntilBecomeVisible(WebDriver driver, String selector) {
+        return new WebDriverWait(driver, Duration.ofMillis(10000))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(selector)));
+    }
+
+    private List<WebElement> waitUntilBecomeVisibleAll(WebDriver driver, String selector) {
+        return new WebDriverWait(driver, Duration.ofMillis(10000))
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(selector)));
+    }
+
+    @BeforeAll
+    static void setup() {
+            WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://www.mts.by/");
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
         cookies = driver.manage().getCookies();
         cookies.stream().forEach(c -> driver.manage().addCookie(c));
-        selectArrow = waitUntilBecomeVisible(driver, XPATH_SELECTOR);
+    }
+    @BeforeEach
+    void setWait() {
+        selectArrow = waitUntilBecomeVisible(driver, "//span[@class='select__arrow']");
         selectArrow.click();
-        payFormSelect = waitUntilBecomeVisibleAll(driver, PAY_FORM_SELECTOR);
+        payFormSelect = waitUntilBecomeVisibleAll(driver, "//ul[@class='select__list']/li");
     }
 
-    @AfterEach
-    void teardown() {
+    @AfterAll
+    static void teardown() {
         cookies.stream().forEach(c -> driver.manage().deleteCookie(c));
         driver.quit();
     }
@@ -47,9 +64,9 @@ public class OnlinePaySysTest implements TestUtils {
     @Test
     void connectionServicesNotesTest() {
         payFormSelect.get(0).click();
-        WebElement phone = elementWithXpath(driver, formWithId("connection-phone"));
-        WebElement sum = elementWithXpath(driver, formWithId("connection-sum"));
-        WebElement email = elementWithXpath(driver, formWithId("connection-email"));
+        WebElement phone = elementWithXpath(driver, inputWithId("connection-phone"));
+        WebElement sum = elementWithXpath(driver, inputWithId("connection-sum"));
+        WebElement email = elementWithXpath(driver, inputWithId("connection-email"));
         assertAll(() -> assertEquals("Номер телефона", phone.getAttribute("placeholder")),
                 () -> assertEquals("Сумма", sum.getAttribute("placeholder")),
                 () -> assertEquals("E-mail для отправки чека", email.getAttribute("placeholder")));
@@ -58,9 +75,9 @@ public class OnlinePaySysTest implements TestUtils {
     @Test
     void internetServicesNotesTest() {
         payFormSelect.get(1).click();
-        WebElement subscriberNum = elementWithXpath(driver, formWithId("internet-phone"));
-        WebElement sum = elementWithXpath(driver, formWithId("connection-sum"));
-        WebElement email = elementWithXpath(driver, formWithId("internet-email"));
+        WebElement subscriberNum = elementWithXpath(driver, inputWithId("internet-phone"));
+        WebElement sum = elementWithXpath(driver, inputWithId("connection-sum"));
+        WebElement email = elementWithXpath(driver, inputWithId("internet-email"));
         assertAll(() -> assertEquals("Номер абонента", subscriberNum.getAttribute("placeholder")),
                 () -> assertEquals("Сумма", sum.getAttribute("placeholder")),
                 () -> assertEquals("E-mail для отправки чека", email.getAttribute("placeholder")));
@@ -69,9 +86,9 @@ public class OnlinePaySysTest implements TestUtils {
     @Test
     void installmentServicesNotesTest() {
         payFormSelect.get(2).click();
-        WebElement scoreInstalment = elementWithXpath(driver, formWithId("score-instalment"));
-        WebElement sum = elementWithXpath(driver, formWithId("instalment-sum"));
-        WebElement email = elementWithXpath(driver, formWithId("instalment-email"));
+        WebElement scoreInstalment = elementWithXpath(driver, inputWithId("score-instalment"));
+        WebElement sum = elementWithXpath(driver, inputWithId("instalment-sum"));
+        WebElement email = elementWithXpath(driver, inputWithId("instalment-email"));
         assertAll(() -> assertEquals("Номер счета на 44", scoreInstalment.getAttribute("placeholder")),
                 () -> assertEquals("Сумма", sum.getAttribute("placeholder")),
                 () -> assertEquals("E-mail для отправки чека", email.getAttribute("placeholder")));
@@ -79,9 +96,9 @@ public class OnlinePaySysTest implements TestUtils {
     @Test
     void debtServicesNotesTest() {
         payFormSelect.get(2).click();
-        WebElement accountNum = elementWithXpath(driver, formWithId("score-arrears"));
-        WebElement sum = elementWithXpath(driver, formWithId("arrears-sum"));
-        WebElement email = elementWithXpath(driver, formWithId("arrears-email"));
+        WebElement accountNum = elementWithXpath(driver, inputWithId("score-arrears"));
+        WebElement sum = elementWithXpath(driver, inputWithId("arrears-sum"));
+        WebElement email = elementWithXpath(driver, inputWithId("arrears-email"));
         assertAll(() -> assertEquals("Номер счета на 2073", accountNum.getAttribute("placeholder")),
                 () -> assertEquals("Сумма", sum.getAttribute("placeholder")),
                 () -> assertEquals("E-mail для отправки чека", email.getAttribute("placeholder")));

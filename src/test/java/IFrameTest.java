@@ -14,12 +14,38 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class IFrameTest implements TestUtils {
+public class IFrameTest {
     private static WebDriver driver;
     WebDriver iFrame;
     private WebDriverWait wait;
     private Set<Cookie> cookies;
-    private final String XPATH_IFRAME = "//iframe[@class='bepaid-iframe']";
+
+    private WebElement elementWithXpath(WebDriver driver, String text) {
+        return driver.findElement(By.xpath(text));
+    }
+
+    private String labelWithText(String text) {
+        return "//label[text()=".concat("'").concat(text).concat("'").concat("]");
+    }
+
+    private String buttonWithText(String text) {
+        return "//button[text()=".concat("'").concat(text).concat("'").concat("]");
+    }
+
+    private WebElement waitUntilBecomeVisible(WebDriver driver, String selector) {
+        return new WebDriverWait(driver, Duration.ofMillis(10000))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(selector)));
+    }
+
+    private List<WebElement> waitUntilBecomeVisibleAll(WebDriver driver, String selector) {
+        return new WebDriverWait(driver, Duration.ofMillis(10000))
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(selector)));
+    }
+
+    private String formWithId(String text) {
+        return "//form//input[@id=".concat("'").concat(text).concat("'").concat("]");
+    }
+
     @BeforeAll
     static void setupAll() {
         WebDriverManager.chromedriver().setup();
@@ -30,8 +56,7 @@ public class IFrameTest implements TestUtils {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://www.mts.by/");
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
-        wait = new WebDriverWait(driver, Duration.ofMillis(5000));
+        wait = new WebDriverWait(driver, Duration.ofMillis(10000));
         cookies = driver.manage().getCookies();
         cookies.stream().forEach(c -> driver.manage().addCookie(c));
         WebElement phone = elementWithXpath(driver, formWithId("connection-phone"));
@@ -45,7 +70,8 @@ public class IFrameTest implements TestUtils {
         email.click();
         email.sendKeys("test@test.by");
         nextButton.click();
-        iFrame = wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath(XPATH_IFRAME)));
+        iFrame = wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(
+                By.xpath("//iframe[@class='bepaid-iframe']")));
     }
 
     @AfterEach
