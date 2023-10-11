@@ -16,13 +16,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class IFrameTest {
     private static WebDriver driver;
-    WebDriver iFrame;
-    private WebDriverWait wait;
-    private Set<Cookie> cookies;
-
-    private WebElement elementWithXpath(WebDriver driver, String text) {
-        return driver.findElement(By.xpath(text));
-    }
+    private static WebDriver iFrame;
+    private static WebDriverWait wait;
+    private static Set<Cookie> cookies;
+    private static final String XPATH_IFRAME = "//iframe[@class='bepaid-iframe']";
 
     private String labelWithText(String text) {
         return "//label[text()=".concat("'").concat(text).concat("'").concat("]");
@@ -30,6 +27,10 @@ public class IFrameTest {
 
     private String buttonWithText(String text) {
         return "//button[text()=".concat("'").concat(text).concat("'").concat("]");
+    }
+
+    private WebElement elementWithXpath(WebDriver driver, String text) {
+        return driver.findElement(By.xpath(text));
     }
 
     private WebElement waitUntilBecomeVisible(WebDriver driver, String selector) {
@@ -42,27 +43,19 @@ public class IFrameTest {
                 .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(selector)));
     }
 
-    private String formWithId(String text) {
-        return "//form//input[@id=".concat("'").concat(text).concat("'").concat("]");
-    }
 
     @BeforeAll
-    static void setupAll() {
+    static void setup() {
         WebDriverManager.chromedriver().setup();
-    }
-
-    @BeforeEach
-    void setup() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://www.mts.by/");
-        wait = new WebDriverWait(driver, Duration.ofMillis(10000));
-        cookies = driver.manage().getCookies();
-        cookies.stream().forEach(c -> driver.manage().addCookie(c));
-        WebElement phone = elementWithXpath(driver, formWithId("connection-phone"));
-        WebElement amount = elementWithXpath(driver, formWithId("connection-sum"));
-        WebElement email = elementWithXpath(driver, formWithId("connection-email"));
-        WebElement nextButton = elementWithXpath(driver, buttonWithText("Продолжить"));
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
+        wait = new WebDriverWait(driver, Duration.ofMillis(5000));
+        WebElement phone = driver.findElement(By.xpath("//input[@id='connection-phone']"));
+        WebElement amount = driver.findElement(By.xpath("//input[@id='connection-sum']"));
+        WebElement email = driver.findElement(By.xpath("//input[@id='connection-email']"));
+        WebElement nextButton = driver.findElement(By.xpath("//button[text()='Продолжить']"));
         phone.click();
         phone.sendKeys("297777777");
         amount.click();
@@ -70,12 +63,14 @@ public class IFrameTest {
         email.click();
         email.sendKeys("test@test.by");
         nextButton.click();
-        iFrame = wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(
-                By.xpath("//iframe[@class='bepaid-iframe']")));
+
+        cookies = driver.manage().getCookies();
+        cookies.stream().forEach(c -> driver.manage().addCookie(c));
+        iFrame = wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath(XPATH_IFRAME)));
     }
 
-    @AfterEach
-    void teardown() {
+    @AfterAll
+    static void teardown() {
         cookies.stream().forEach(c -> driver.manage().deleteCookie(c));
         driver.quit();
     }
