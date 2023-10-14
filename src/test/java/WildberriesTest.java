@@ -1,6 +1,3 @@
-import Aston_AQA.WildberriesBasketPage;
-import Aston_AQA.WildberriesHomePage;
-import Aston_AQA.WildberriesProductPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -32,16 +29,12 @@ public class WildberriesTest {
     }
     @AfterAll
     static void tearDown() {
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         homePage.quit();
     }
     @Test
     void smokeTest() {
-        homePage.goToBasket();
+        String priceVal1 = homePage.selectFirstProduct().getPriceVal();
+        System.out.println(priceVal1);
     }
 
     }

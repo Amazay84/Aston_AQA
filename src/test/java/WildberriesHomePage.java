@@ -1,5 +1,4 @@
-package Aston_AQA;
-
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class WildberriesHomePage {
     private final WebDriver driver;
@@ -18,10 +18,8 @@ public class WildberriesHomePage {
     private WebElement search;
     @FindBy (xpath = "//*[@id='applySearchBtn']")
     private WebElement searchBtn;
-    @FindBy (xpath = "//*[@id='c161299502']/div/a")
-    private WebElement firstProduct;
-    @FindBy (xpath = "//*[@id=\"YzhlM2E3OWYtZjNiNy1jOGFiLThjNjctZDc5MTRiN2QyZmZl\"]/div/article[5]/div/a")
-    private WebElement secondProduct;
+    @FindBy (xpath = "//article/div/a")
+    private List<WebElement> products;
     @FindBy (xpath = "//*[contains(text(), 'Добавить в корзину')]")
     private WebElement addToBasketButton;
     @FindBy (xpath = "//*[@id='basketContent']")
@@ -53,16 +51,30 @@ public class WildberriesHomePage {
         return this;
     }
     public WildberriesProductPage selectFirstProduct() {
-       new WebDriverWait(driver, Duration.ofMillis(5000))
-               .until(ExpectedConditions.elementToBeClickable(firstProduct)).click();
+        driver.manage().timeouts().scriptTimeout(Duration.ofMillis(5000));
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(5000));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,1000)");
+        new WebDriverWait(driver, Duration.ofMillis(5000))
+               .until(ExpectedConditions.elementToBeClickable(products.get(1))).click();
        return new WildberriesProductPage(driver);
     }
 
     public WildberriesProductPage selectSecondProduct() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
         new WebDriverWait(driver, Duration.ofMillis(5000))
-                .until(ExpectedConditions.elementToBeClickable(secondProduct)).click();
+                .until(ExpectedConditions.elementToBeClickable(products.get(2))).click();
         return new WildberriesProductPage(driver);
     }
+    public WildberriesProductPage selectThirdProduct() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+        new WebDriverWait(driver, Duration.ofMillis(5000))
+                .until(ExpectedConditions.elementToBeClickable(products.get(3))).click();
+        return new WildberriesProductPage(driver);
+    }
+
 
     public WildberriesBasketPage goToBasket() {
         basket.click();
@@ -71,7 +83,7 @@ public class WildberriesHomePage {
 
     public void quit() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
