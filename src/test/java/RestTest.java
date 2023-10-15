@@ -1,9 +1,12 @@
 import EchoPostman.EchoPostReq;
+import EchoPostman.EchoPostResp;
 import Spec.Specifications;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 
 public class RestTest {
     private static final String URL = "https://postman-echo.com";
@@ -17,39 +20,39 @@ public class RestTest {
         given().log().body()
                 .when().get("/get?foo1=bar1&foo2=bar2")
                 .then().log().all()
-                .assertThat()
-                .extract().jsonPath().get();
+                .body("args.foo1", equalTo("bar1")).body("args.foo2", equalTo("bar2"));
     }
     @Test
     void echoPostTest() {
         given().log().body()
                 .when().post("/post")
-                .then().log().all()
-                .assertThat();
+                .then().log().all();
     }
     @Test
     void echoBodyPostTest() {
         EchoPostReq req = new EchoPostReq("bar1", "bar2");
         given().body(req)
                 .when().post("/post")
-                .then().log().all();
+                .then()
+                .body("json.foo1", equalTo("bar1"))
+                .and().body("json.foo2", equalTo("bar2"));
     }
     @Test
     void echoPutTest() {
         given().log().body()
                 .when().put("/put")
-                .then().log().all();
+                .then();
     }
     @Test
     void echoPatchTest() {
         given().log().body()
                 .when().patch("/patch")
-                .then().log().all();
+                .then();
     }
     @Test
     void echoDeleteTest() {
         given().log().body()
                 .when().delete("/delete")
-                .then().log().all();
+                .then();
     }
 }

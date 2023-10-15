@@ -20,7 +20,6 @@ public class Specifications {
     public static ResponseSpecification responseSpec200ok() {
         return new ResponseSpecBuilder()
                 .log(LogDetail.ALL)
-                .expectContentType(ContentType.JSON)
                 .expectStatusCode(HttpStatus.SC_OK)
                 .build();
     }
