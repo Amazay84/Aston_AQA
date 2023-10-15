@@ -31,11 +31,14 @@ public class RestTest {
     @Test
     void echoBodyPostTest() {
         EchoPostReq req = new EchoPostReq("bar1", "bar2");
-        given().body(req)
+        EchoPostResp resp = given().body(req)
                 .when().post("/post")
                 .then()
                 .body("json.foo1", equalTo("bar1"))
-                .and().body("json.foo2", equalTo("bar2"));
+                .and().body("json.foo2", equalTo("bar2"))
+                .extract().body().jsonPath().getObject("json", EchoPostResp.class);
+        Assertions.assertAll(()->Assertions.assertTrue(resp.getFoo1().equals("bar1")),
+                ()->Assertions.assertTrue(resp.getFoo2().equals("bar2")));
     }
     @Test
     void echoPutTest() {
