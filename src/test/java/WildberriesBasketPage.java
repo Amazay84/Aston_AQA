@@ -16,10 +16,14 @@ public class WildberriesBasketPage extends WildberriesElements {
     private List<WebElement> plusBtn;
     @FindBy (xpath = "//input[@type='number']")
     private WebElement inputQuantityField;
+    @FindBy (xpath = "//*[@class='basket__items-counter']")
+    private static WebElement basketItemsCount;
     @FindBy (xpath = "//*[@alt='Wildberries']")
     private WebElement homePageBtn;
     @FindBy (xpath = "//*[@data-tag='totalSum']")
     private static WebElement totalPrice;
+    @FindBy (xpath = "//*[@class='quantity__input']")
+    private static List<WebElement> productCounters;
     @FindBy (xpath = "//*[@class='b-item-price__lower']")
     private List<WebElement> productPrises;
     @FindBy (xpath = "//*[@data-tag='itemName']")
@@ -39,6 +43,14 @@ public class WildberriesBasketPage extends WildberriesElements {
                  .map(e -> e.getText()).map(e -> Double.valueOf(e))
                  .collect(Collectors.toList());
          return res.stream().reduce((e1, e2) -> e1 + e2).get();
+    }
+
+    public static String getProductCounters(int id) {
+        return visibilityOfElement(driver, productCounters.get(id)).getDomProperty("value");
+    }
+
+    public static String getBasketItemsCount() {
+        return visibilityOfElement(driver, basketItemsCount).getDomProperty("innerText");
     }
 
     public static String getTotalPrice() {

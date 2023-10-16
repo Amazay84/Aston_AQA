@@ -46,10 +46,19 @@ public class WildberriesTest {
         System.out.println("---------");
         String actualPrice = WildberriesBasketPage.getTotalPrice().replaceAll(" ", "");
         System.out.println(actualPrice);
+        System.out.println("-|-|-|-|-|");
+        int totalCountAtAllAtBasket = Integer.parseInt(WildberriesBasketPage.getBasketItemsCount());
+        int firstProductCountAtBasket = Integer.parseInt(WildberriesBasketPage.getProductCounters(0));
+        int secondProductCountAtBasket = Integer.parseInt(WildberriesBasketPage.getProductCounters(1));
+        System.out.println(WildberriesBasketPage.getBasketItemsCount());
+        System.out.println("---------");
+        System.out.println(WildberriesBasketPage.getProductCounters(0) + " | " + WildberriesBasketPage.getProductCounters(1));
         String firstProd = "Геймпад для PS5 DualSense Black";
         String secondProd = "PlayStation 5 1200A (Япония), 3-я ревизия, с дисководом";
         Assertions.assertAll(() -> Assertions.assertTrue(WildberriesElements.getProductInfo().containsKey(firstProd)),
                 () -> Assertions.assertTrue(WildberriesElements.getProductInfo().containsKey(secondProd)),
-                () -> Assertions.assertTrue(actualPrice.equals(expectedPrice)));
+                () -> Assertions.assertTrue(actualPrice.equals(expectedPrice)),
+                () -> Assertions.assertTrue((firstProductCountAtBasket + secondProductCountAtBasket)
+                        == totalCountAtAllAtBasket));
     }
 }
