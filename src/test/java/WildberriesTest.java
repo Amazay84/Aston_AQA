@@ -42,6 +42,7 @@ public class WildberriesTest {
                 .getProductInform();
         WildberriesElements.getProductInfo().forEach((k, v) -> System.out.println(k + " | " + v));
         String shopping = String.valueOf(WildberriesElements.getTotalPriceFromInfo());
+        System.out.println(shopping);
         String firstProd = "Геймпад для PS5 DualSense Black";
         String secondProd = "PlayStation 5 1200A (Япония), 3-я ревизия, с дисководом";
         Assertions.assertAll(() -> Assertions.assertTrue(WildberriesElements.getProductInfo().containsKey(firstProd)),
