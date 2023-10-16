@@ -1,30 +1,62 @@
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
-public class WildberriesBasketPage {
+public class WildberriesBasketPage extends WildberriesElements {
     private WebDriver driver;
-    @FindBy (xpath = "//*[@class='count__plus plus']")
-    private WebElement plusBtn;
+    @FindBy (xpath = "//*[@class='quantity__plus']")
+    private List<WebElement> plusBtn;
     @FindBy (xpath = "//input[@type='number']")
     private WebElement inputQuantityField;
     @FindBy (xpath = "//*[@alt='Wildberries']")
     private WebElement homePageBtn;
+    @FindBy (xpath = "//*[@data-tag='totalSum']")
+    private WebElement totalPrice;
+    @FindBy (xpath = "//*[@class='b-item-price__lower']")
+    private List<WebElement> productPrises;
+    @FindBy (xpath = "//*[@data-tag='itemName']")
+    private List<WebElement> productNames;
+    private static String totalShopping;
     public WildberriesBasketPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
-        driver.get("https://www.wildberries.ru/lk/basket");
     }
 
-    public WildberriesBasketPage setQuantity() {
+    public WildberriesBasketPage setQuantity(int prodId) {
         new WebDriverWait(driver, Duration.ofMillis(5000))
-                .until(ExpectedConditions.elementToBeClickable(plusBtn)).click();
+                .until(ExpectedConditions.visibilityOf(plusBtn.get(prodId))).click();
+        return this;
+    }
+    public double getTotalPriceExpected() {
+         List<Double> res = productPrises.stream()
+                 .map(e -> e.getText()).map(e -> Double.valueOf(e))
+                 .collect(Collectors.toList());
+         return res.stream().reduce((e1, e2) -> e1 + e2).get();
+    }
+
+    public String getTotalPrice() {
+        WildberriesBasketPage.totalShopping = new WebDriverWait(driver, Duration.ofMillis(5000))
+                .until(ExpectedConditions.visibilityOf(totalPrice)).getText();
+        return totalShopping;
+    }
+
+    public WildberriesBasketPage getProductInform() {
+        Map<String, String> prodInfo = IntStream.range(0, productNames.size()).boxed()
+                .collect(Collectors.toMap(i -> productNames.get(i).getText(), i -> productPrises.get(i).getText()));
+        setProductInfo(prodInfo);
+//        productPriceVal = new WebDriverWait(driver, Duration.ofMillis(5000))
+//                .until(ExpectedConditions.visibilityOf(productPrice)).getText();
+//        productNameVal = new WebDriverWait(driver, Duration.ofMillis(5000))
+//                .until(ExpectedConditions.visibilityOf(productName)).getText();
+//        productInfo.put(productNameVal, productPriceVal);
         return this;
     }
 

@@ -1,3 +1,4 @@
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -6,47 +7,52 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.List;
 
-public class WildberriesProductPage {
+public class WildberriesProductPage extends WildberriesElements {
     WebDriver driver;
-    @FindBy(xpath = "//*[@class='price-block__final-price']")
-    private WebElement price;
-    @FindBy (xpath = "//*[@data-link='text{:selectedNomenclature^goodsName}']")
+    @FindBy(xpath = "//*[@class='product-price-current__value']")
+    private WebElement productPrice;
+    @FindBy(xpath = "//*[@data-tag='productName']")
     private WebElement productName;
-
-    @FindBy (xpath = "//*[text()='Добавить в корзину']")
-    private List<WebElement> addToBasketBtn;
-    @FindBy (xpath = "//*[@alt='Wildberries']")
-    private WebElement homePageBtn;
-    @FindBy (xpath = "//*[@id='basketContent']")
-    private WebElement basket;
-
+    @FindBy(xpath = "//*[@class='basket-button__button btn btn--primary-gradient']")
+    private WebElement addToBasketBtn;
+    @FindBy(xpath = "//*[@class='quantity__plus']")
+    private WebElement quantityPlus;
 
     public WildberriesProductPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-
     }
 
-    public String getPriceVal() {
-        return price.getText();
-    }
-    public String getProductName() {
-        return productName.getText();
-    }
     public WildberriesProductPage addToBasket() {
         new WebDriverWait(driver, Duration.ofMillis(5000))
-                .until(ExpectedConditions.elementToBeClickable(addToBasketBtn.get(1))).click();
+                .until(ExpectedConditions.visibilityOfElementLocated(By
+                        .xpath("//*[@class='basket-button__button btn btn--primary-gradient']"))).click();
         return this;
     }
+
+    public WildberriesProductPage setQuantity() {
+        new WebDriverWait(driver, Duration.ofMillis(5000))
+                .until(ExpectedConditions.visibilityOf(quantityPlus)).click();
+        return this;
+    }
+
+    public WildberriesProductPage searchProduct(String productName) {
+        new WebDriverWait(driver, Duration.ofMillis(5000))
+                .until(ExpectedConditions.visibilityOf(searchField)).sendKeys(productName);
+        return this;
+    }
+
+
     public WildberriesHomePage backToHome() {
         new WebDriverWait(driver, Duration.ofMillis(5000))
-                .until(ExpectedConditions.elementToBeClickable(homePageBtn)).click();
+                .until(ExpectedConditions.visibilityOf(homePageBtn)).click();
         return new WildberriesHomePage(driver);
     }
+
     public WildberriesBasketPage goToBasket() {
-        basket.click();
+        new WebDriverWait(driver, Duration.ofMillis(5000))
+                .until(ExpectedConditions.visibilityOf(basketBtn)).click();
         return new WildberriesBasketPage(driver);
     }
 
