@@ -1,8 +1,12 @@
 import lombok.Getter;
 import lombok.Setter;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.Map;
 
 public abstract class WildberriesElements {
@@ -31,4 +35,13 @@ public abstract class WildberriesElements {
     public static void setProductInfo(Map<String, String> productInfo) {
         WildberriesElements.productInfo = productInfo;
     }
+    public static WebElement visibilityOfElement(WebDriver driver, WebElement element) {
+        return new WebDriverWait(driver, Duration.ofMillis(5000))
+                .until(ExpectedConditions.visibilityOf(element));
+    }
+    public static WebElement elementToBeClickable(WebDriver driver, WebElement element) {
+        return new WebDriverWait(driver, Duration.ofMillis(5000))
+                .until(ExpectedConditions.elementToBeClickable(element));
+    }
+
 }

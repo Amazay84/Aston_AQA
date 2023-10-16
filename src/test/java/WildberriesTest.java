@@ -35,18 +35,21 @@ public class WildberriesTest {
     @Test
     void smokeTest() {
         homePage.searchProduct("playstation 5").clickSearchBtn().selectProduct(0).addToBasket()
-                .setQuantity().backToHome()
+                .clickQuantityBtn().backToHome()
                 .searchProduct("playstation 5 геймпад").clickSearchBtn().selectProduct(0)
-                .addToBasket().setQuantity().backToHome()
+                .addToBasket().clickQuantityBtn().backToHome()
                 .goToBasket()
                 .getProductInform();
         WildberriesElements.getProductInfo().forEach((k, v) -> System.out.println(k + " | " + v));
-        String shopping = String.valueOf(WildberriesElements.getTotalPriceFromInfo());
-        System.out.println(shopping);
+        String expectedPrice = String.format("%.2fр.",WildberriesElements.getTotalPriceFromInfo());
+        System.out.println(expectedPrice);
+        System.out.println("---------");
+        String actualPrice = WildberriesBasketPage.getTotalPrice().replaceAll(" ", "");
+        System.out.println(actualPrice);
         String firstProd = "Геймпад для PS5 DualSense Black";
         String secondProd = "PlayStation 5 1200A (Япония), 3-я ревизия, с дисководом";
         Assertions.assertAll(() -> Assertions.assertTrue(WildberriesElements.getProductInfo().containsKey(firstProd)),
-                () -> Assertions.assertTrue(WildberriesElements.getProductInfo().containsKey(secondProd)));
+                () -> Assertions.assertTrue(WildberriesElements.getProductInfo().containsKey(secondProd)),
+                () -> Assertions.assertTrue(actualPrice.equals(expectedPrice)));
     }
-
 }

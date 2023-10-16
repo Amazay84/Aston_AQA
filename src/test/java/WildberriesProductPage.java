@@ -31,9 +31,8 @@ public class WildberriesProductPage extends WildberriesElements {
         return this;
     }
 
-    public WildberriesProductPage setQuantity() {
-        new WebDriverWait(driver, Duration.ofMillis(5000))
-                .until(ExpectedConditions.visibilityOf(quantityPlus)).click();
+    public WildberriesProductPage clickQuantityBtn() {
+        visibilityOfElement(driver, quantityPlus).click();
         return this;
     }
 
@@ -45,14 +44,12 @@ public class WildberriesProductPage extends WildberriesElements {
 
 
     public WildberriesHomePage backToHome() {
-        new WebDriverWait(driver, Duration.ofMillis(5000))
-                .until(ExpectedConditions.visibilityOf(homePageBtn)).click();
+        visibilityOfElement(driver, homePageBtn).click();
         return new WildberriesHomePage(driver);
     }
 
     public WildberriesBasketPage goToBasket() {
-        new WebDriverWait(driver, Duration.ofMillis(5000))
-                .until(ExpectedConditions.visibilityOf(basketBtn)).click();
+        visibilityOfElement(driver, basketBtn).click();
         return new WildberriesBasketPage(driver);
     }
 

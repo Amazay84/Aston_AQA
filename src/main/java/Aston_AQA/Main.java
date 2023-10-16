@@ -2,7 +2,7 @@ package Aston_AQA;
 
 public class Main {
     public static void main(String[] args) {
-        String d = "650.48";
+        String d = "3 268,41 р.";
         double dd= Double.parseDouble(d);
         System.out.println(dd);
     }

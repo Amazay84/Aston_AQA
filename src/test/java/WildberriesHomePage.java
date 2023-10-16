@@ -31,33 +31,23 @@ public class WildberriesHomePage extends WildberriesElements {
     public WildberriesProductPage selectProduct(int itemNum) {
 //        JavascriptExecutor js = (JavascriptExecutor) driver;
 //        js.executeScript("window.scrollBy(0,1000)");
-        new WebDriverWait(driver, Duration.ofMillis(5000))
-                .until(ExpectedConditions.visibilityOf(products.get(itemNum))).click();
+        visibilityOfElement(driver, products.get(itemNum)).click();
         return new WildberriesProductPage(driver);
     }
 
     public WildberriesHomePage searchProduct(String productName) {
-        new WebDriverWait(driver, Duration.ofMillis(5000))
-                .until(ExpectedConditions.visibilityOf(searchField)).sendKeys(productName);
+        visibilityOfElement(driver, searchField).sendKeys(productName);
         return this;
     }
 
     public WildberriesHomePage clickSearchBtn() {
-        new WebDriverWait(driver, Duration.ofMillis(5000))
-                .until(ExpectedConditions.visibilityOf(searchField)).sendKeys(Keys.ENTER);
+        visibilityOfElement(driver, searchField).sendKeys(Keys.ENTER);
         return this;
     }
 
-    public WildberriesHomePage setQuantity(int prodNum) {
-        new WebDriverWait(driver, Duration.ofMillis(5000))
-                .until(ExpectedConditions.visibilityOf(quantityPlus.get(prodNum))).click();
-        return this;
-    }
 
     public WildberriesBasketPage goToBasket() {
-        new WebDriverWait(driver, Duration.ofMillis(5000))
-                .until(ExpectedConditions.elementToBeClickable(basketBtn)).click();
+        elementToBeClickable(driver, basketBtn).click();
         return new WildberriesBasketPage(driver);
     }
-
 }
