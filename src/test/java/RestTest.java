@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.core.IsNull.notNullValue;
 
 public class RestTest {
     private static final String URL = "https://postman-echo.com";
@@ -17,16 +18,34 @@ public class RestTest {
     }
     @Test
     void echoGetTest() {
-        given().log().body()
+        given()
                 .when().get("/get?foo1=bar1&foo2=bar2")
-                .then().log().all()
-                .body("args.foo1", equalTo("bar1")).body("args.foo2", equalTo("bar2"));
+                .then()
+                .body("args.foo1", equalTo("bar1"))
+                .body("args.foo2", equalTo("bar2"))
+                .body("headers.x-forwarded-proto", equalTo("https"))
+                .body("headers.x-forwarded-port", equalTo("443"))
+                .body("headers.host", equalTo("postman-echo.com"))
+                .body("headers.x-amzn-trace-id", notNullValue())
+                .body("headers.content-type", equalTo("application/json"))
+                .body("headers.accept",equalTo("application/json, application/javascript, text/javascript, text/json"))
+                .body("headers.user-agent", equalTo("Apache-HttpClient/4.5.13 (Java/11.0.20)"))
+                .body("headers.accept-encoding", equalTo("gzip,deflate"));
     }
     @Test
     void echoPostTest() {
-        given().log().body()
+        given()
                 .when().post("/post")
-                .then().log().all();
+                .then()
+                .body("headers.x-forwarded-proto", equalTo("https"))
+                .body("headers.x-forwarded-port", equalTo("443"))
+                .body("headers.host", equalTo("postman-echo.com"))
+                .body("headers.x-amzn-trace-id", notNullValue())
+                .body("headers.content-type", equalTo("application/json"))
+                .body("headers.accept",equalTo("application/json, application/javascript, text/javascript, text/json"))
+                .body("headers.user-agent", equalTo("Apache-HttpClient/4.5.13 (Java/11.0.20)"))
+                .body("headers.accept-encoding", equalTo("gzip,deflate"));
+        ;
     }
     @Test
     void echoBodyPostTest() {
@@ -36,26 +55,58 @@ public class RestTest {
                 .then()
                 .body("json.foo1", equalTo("bar1"))
                 .and().body("json.foo2", equalTo("bar2"))
+                .body("headers.x-forwarded-proto", equalTo("https"))
+                .body("headers.x-forwarded-port", equalTo("443"))
+                .body("headers.host", equalTo("postman-echo.com"))
+                .body("headers.x-amzn-trace-id", notNullValue())
+                .body("headers.content-type", equalTo("application/json"))
+                .body("headers.accept",equalTo("application/json, application/javascript, text/javascript, text/json"))
+                .body("headers.user-agent", equalTo("Apache-HttpClient/4.5.13 (Java/11.0.20)"))
+                .body("headers.accept-encoding", equalTo("gzip,deflate"))
                 .extract().body().jsonPath().getObject("json", EchoPostResp.class);
         Assertions.assertAll(()->Assertions.assertTrue(resp.getFoo1().equals("bar1")),
                 ()->Assertions.assertTrue(resp.getFoo2().equals("bar2")));
     }
     @Test
     void echoPutTest() {
-        given().log().body()
+        given()
                 .when().put("/put")
-                .then();
+                .then()
+                .body("headers.x-forwarded-proto", equalTo("https"))
+                .body("headers.x-forwarded-port", equalTo("443"))
+                .body("headers.host", equalTo("postman-echo.com"))
+                .body("headers.x-amzn-trace-id", notNullValue())
+                .body("headers.content-type", equalTo("application/json"))
+                .body("headers.accept",equalTo("application/json, application/javascript, text/javascript, text/json"))
+                .body("headers.user-agent", equalTo("Apache-HttpClient/4.5.13 (Java/11.0.20)"))
+                .body("headers.accept-encoding", equalTo("gzip,deflate"));
     }
     @Test
     void echoPatchTest() {
-        given().log().body()
+        given()
                 .when().patch("/patch")
-                .then();
+                .then()
+                .body("headers.x-forwarded-proto", equalTo("https"))
+                .body("headers.x-forwarded-port", equalTo("443"))
+                .body("headers.host", equalTo("postman-echo.com"))
+                .body("headers.x-amzn-trace-id", notNullValue())
+                .body("headers.content-type", equalTo("application/json"))
+                .body("headers.accept",equalTo("application/json, application/javascript, text/javascript, text/json"))
+                .body("headers.user-agent", equalTo("Apache-HttpClient/4.5.13 (Java/11.0.20)"))
+                .body("headers.accept-encoding", equalTo("gzip,deflate"));
     }
     @Test
     void echoDeleteTest() {
-        given().log().body()
+        given()
                 .when().delete("/delete")
-                .then();
+                .then()
+                .body("headers.x-forwarded-proto", equalTo("https"))
+                .body("headers.x-forwarded-port", equalTo("443"))
+                .body("headers.host", equalTo("postman-echo.com"))
+                .body("headers.x-amzn-trace-id", notNullValue())
+                .body("headers.content-type", equalTo("application/json"))
+                .body("headers.accept",equalTo("application/json, application/javascript, text/javascript, text/json"))
+                .body("headers.user-agent", equalTo("Apache-HttpClient/4.5.13 (Java/11.0.20)"))
+                .body("headers.accept-encoding", equalTo("gzip,deflate"));
     }
 }
