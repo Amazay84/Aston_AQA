@@ -32,11 +32,5 @@
             <version>5.5.3</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.10</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 </project>

@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.Duration;
+import java.util.HashMap;
 
 public class WildberriesTest {
     private static WildberriesHomePage homePage;
@@ -27,6 +28,10 @@ public class WildberriesTest {
         driver.manage().timeouts().scriptTimeout(Duration.ofMillis(5000));
     }
 
+    @AfterEach
+    void setClean() {
+        WildberriesElements.setProductInfo(new HashMap<>());
+    }
     @AfterAll
     static void tearDown() {
         driver.quit();
@@ -34,29 +39,35 @@ public class WildberriesTest {
 
     @Test
     void smokeTest() {
-        homePage.searchProduct("playstation 5").clickSearchBtn().selectProduct(0).addToBasket()
+        String firstProd = "PlayStation 5 1200A (Япония), 3-я ревизия, с дисководом";
+        String secondProd = "Геймпад для PS5 DualSense Black";
+
+        homePage.searchProduct(firstProd).clickSearchBtn().selectProduct(0).addToBasket()
                 .clickQuantityBtn().backToHome()
-                .searchProduct("playstation 5 геймпад").clickSearchBtn().selectProduct(0)
+                .searchProduct(secondProd).clickSearchBtn().selectProduct(0)
                 .addToBasket().clickQuantityBtn().backToHome()
                 .goToBasket()
                 .getProductInform();
         WildberriesElements.getProductInfo().forEach((k, v) -> System.out.println(k + " | " + v));
+
         String expectedPrice = String.format("%.2fр.",WildberriesElements.getTotalPriceFromInfo());
         System.out.println(expectedPrice);
         System.out.println("---------");
+
         String actualPrice = WildberriesBasketPage.getTotalPrice().replaceAll(" ", "");
         System.out.println(actualPrice);
         System.out.println("-|-|-|-|-|");
+
         int totalCountAtAllAtBasket = Integer.parseInt(WildberriesBasketPage.getBasketItemsCount());
         int firstProductCountAtBasket = Integer.parseInt(WildberriesBasketPage.getProductCounters(0));
         int secondProductCountAtBasket = Integer.parseInt(WildberriesBasketPage.getProductCounters(1));
         System.out.println(WildberriesBasketPage.getBasketItemsCount());
         System.out.println("---------");
-        System.out.println(WildberriesBasketPage.getProductCounters(0) + " | " + WildberriesBasketPage.getProductCounters(1));
-        String firstProd = "Геймпад для PS5 DualSense Black";
-        String secondProd = "PlayStation 5 1200A (Япония), 3-я ревизия, с дисководом";
-        Assertions.assertAll(() -> Assertions.assertTrue(WildberriesElements.getProductInfo().containsKey(firstProd)),
-                () -> Assertions.assertTrue(WildberriesElements.getProductInfo().containsKey(secondProd)),
+        System.out.println(WildberriesBasketPage.getProductCounters(0) +
+                " | " + WildberriesBasketPage.getProductCounters(1));
+
+        Assertions.assertAll(() -> Assertions.assertTrue(WildberriesElements.getProductInfo().containsKey(secondProd)),
+                () -> Assertions.assertTrue(WildberriesElements.getProductInfo().containsKey(firstProd)),
                 () -> Assertions.assertTrue(actualPrice.equals(expectedPrice)),
                 () -> Assertions.assertTrue((firstProductCountAtBasket + secondProductCountAtBasket)
                         == totalCountAtAllAtBasket));
