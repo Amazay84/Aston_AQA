@@ -1,105 +1,115 @@
-import org.openqa.selenium.WebDriver;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
 
 public abstract class CalcElements {
-    @FindBy(id = "")
-    private WebElement plus;
-    @FindBy (id = "")
-    private WebElement minus;
-    @FindBy (id = "")
-    private WebElement multiply;
-    @FindBy (id = "")
-    private WebElement divide;
-    @FindBy (id = "")
-    private WebElement one;
-    @FindBy (id = "")
-    private WebElement two;
-    @FindBy (id = "")
-    private WebElement three;
-    @FindBy (id = "")
-    private WebElement four;
-    @FindBy (id = "")
-    private WebElement five;
-    @FindBy (id = "")
-    private WebElement six;
-    @FindBy (id = "")
-    private WebElement seven;
-    @FindBy (id = "")
-    private WebElement eight;
-    @FindBy (id = "")
-    private WebElement nine;
-    @FindBy (id = "")
-    private WebElement zero;
+    @FindBy(id = "com.miui.calculator:id/btn_plus_s")
+    private AndroidElement plus;
+    @FindBy (id = "com.miui.calculator:id/listView")
+    private AndroidElement minus;
+    @FindBy (id = "com.miui.calculator:id/btn_mul_s")
+    private AndroidElement multiply;
+    @FindBy (id = "com.miui.calculator:id/btn_mul_s")
+    private AndroidElement divide;
+    @FindBy (id = "com.miui.calculator:id/btn_1_s")
+    private AndroidElement one;
+    @FindBy (id = "com.miui.calculator:id/btn_2_s")
+    private AndroidElement two;
+    @FindBy (id = "com.miui.calculator:id/btn_3_s")
+    private AndroidElement three;
+    @FindBy (id = "com.miui.calculator:id/btn_4_s")
+    private AndroidElement four;
+    @FindBy (id = "com.miui.calculator:id/btn_5_s")
+    private AndroidElement five;
+    @FindBy (id = "com.miui.calculator:id/btn_6_s")
+    private AndroidElement six;
+    @FindBy (id = "com.miui.calculator:id/btn_7_s")
+    private AndroidElement seven;
+    @FindBy (id = "com.miui.calculator:id/btn_8_s")
+    private AndroidElement eight;
+    @FindBy (id = "com.miui.calculator:id/btn_9_s")
+    private AndroidElement nine;
+    @FindBy (id = "com.miui.calculator:id/btn_0_s")
+    private AndroidElement zero;
+    @FindBy (id = "com.miui.calculator:id/btn_equal_s")
+    private AndroidElement equal;
+    @FindBy (id = "com.miui.calculator:id/expression")
+    private AndroidElement expression;
+    @FindBy (id = "com.miui.calculator:id/result")
+    private AndroidElement result;
 
-    public WebElement getEqual() {
+
+    public AndroidElement getEqual() {
         return equal;
     }
 
-    @FindBy (id = "")
-    private WebElement equal;
-
-    public WebElement getPlus() {
+    public AndroidElement getPlus() {
         return plus;
     }
 
-    public WebElement getMinus() {
+    public AndroidElement getMinus() {
         return minus;
     }
 
-    public WebElement getMultiply() {
+    public AndroidElement getMultiply() {
         return multiply;
     }
 
-    public WebElement getDivide() {
+    public AndroidElement getDivide() {
         return divide;
     }
 
-    public WebElement getOne() {
+    public AndroidElement getOne() {
         return one;
     }
 
-    public WebElement getTwo() {
+    public AndroidElement getTwo() {
         return two;
     }
 
-    public WebElement getThree() {
+    public AndroidElement getThree() {
         return three;
     }
 
-    public WebElement getFour() {
+    public AndroidElement getFour() {
         return four;
     }
 
-    public WebElement getFive() {
+    public AndroidElement getFive() {
         return five;
     }
 
-    public WebElement getSix() {
+    public AndroidElement getSix() {
         return six;
     }
 
-    public WebElement getSeven() {
+    public AndroidElement getSeven() {
         return seven;
     }
 
-    public WebElement getEight() {
+    public AndroidElement getEight() {
         return eight;
     }
 
-    public WebElement getNine() {
+    public AndroidElement getNine() {
         return nine;
     }
 
-    public WebElement getZero() {
+    public AndroidElement getZero() {
         return zero;
     }
+    public AndroidElement getResult() {
+        return result;
+    }
+    public AndroidElement getExpression() {
+        return expression;
+    }
 
-    public WebElement waitVisible(WebDriver driver, WebElement element) {
-        return new WebDriverWait(driver, Duration.ofMillis(5000)).until(ExpectedConditions.visibilityOf(element));
+    public WebElement waitVisible(AndroidDriver<AndroidElement> driver, AndroidElement element) {
+        return new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOf(element));
     }
 
 }
