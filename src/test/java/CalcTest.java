@@ -15,6 +15,7 @@ public class CalcTest {
     public static void setup() {
         driver = MobileFactory.getAndroidDriver();
         calc = new CalcMainScreen(driver);
+        calc.clear().clear();
     }
 
     @AfterEach
@@ -23,6 +24,7 @@ public class CalcTest {
         actualExprRes = "";
         expectedExpr = "";
         expectedExprRes = "";
+        calc.clear().clear();
         System.out.println("----------");
     }
 
@@ -33,13 +35,14 @@ public class CalcTest {
 
     @Test
     public void divideTest() {
-        calc.clear().clear().nine().zero().divide().three().equal();
+        calc.nine().zero().divide().three().equal();
         actualExpr = calc.getExpr();
         actualExprRes = calc.getExprRes();
         expectedExpr = "90÷3";
         expectedExprRes = "= 30";
         System.out.println(calc.getExpr() + "\n" + calc.getExprRes());
-        Assertions.assertAll(() -> Assertions.assertTrue(expectedExpr.equals(actualExpr)), () -> Assertions.assertTrue(expectedExprRes.equals(actualExprRes)));
+        Assertions.assertAll(() -> Assertions.assertTrue(expectedExpr.equals(actualExpr)),
+                () -> Assertions.assertTrue(expectedExprRes.equals(actualExprRes)));
     }
 
     @Test
@@ -50,7 +53,8 @@ public class CalcTest {
         expectedExpr = "18×9";
         expectedExprRes = "= 162";
         System.out.println(calc.getExpr() + "\n" + calc.getExprRes());
-        Assertions.assertAll(() -> Assertions.assertTrue(expectedExpr.equals(actualExpr)), () -> Assertions.assertTrue(actualExprRes.equals(expectedExprRes)));
+        Assertions.assertAll(() -> Assertions.assertTrue(expectedExpr.equals(actualExpr)),
+                () -> Assertions.assertTrue(actualExprRes.equals(expectedExprRes)));
     }
 
     @Test
@@ -61,7 +65,8 @@ public class CalcTest {
         expectedExpr = "189+279";
         expectedExprRes = "= 468";
         System.out.println(calc.getExpr() + "\n" + calc.getExprRes());
-        Assertions.assertAll(() -> Assertions.assertTrue(expectedExpr.equals(actualExpr)), () -> Assertions.assertTrue(actualExprRes.equals(expectedExprRes)));
+        Assertions.assertAll(() -> Assertions.assertTrue(expectedExpr.equals(actualExpr)),
+                () -> Assertions.assertTrue(actualExprRes.equals(expectedExprRes)));
     }
 
     @Test
@@ -72,6 +77,7 @@ public class CalcTest {
         expectedExpr = "396-639";
         expectedExprRes = "= -243";
         System.out.println(calc.getExpr() + "\n" + calc.getExprRes());
-        Assertions.assertAll(() -> Assertions.assertTrue(expectedExpr.equals(actualExpr)), () -> Assertions.assertTrue(actualExprRes.equals(expectedExprRes)));
+        Assertions.assertAll(() -> Assertions.assertTrue(expectedExpr.equals(actualExpr)),
+                () -> Assertions.assertTrue(actualExprRes.equals(expectedExprRes)));
     }
 }
