@@ -9,7 +9,7 @@ import java.util.Map;
 public abstract class WildberriesElements {
     @FindBy(xpath = "//*[@class='svg-icon icon-cart-thin']")
     public WebElement basketBtn;
-    @FindBy(xpath = "//*[@class='svg-icon icon-wb-header-logo-holiday']")
+    @FindBy(xpath = "//*[@class='svg-icon icon-wb-header-logo']")
     public WebElement homePageBtn;
     @FindBy(xpath = "//*[@class='search-component-input']")
     public WebElement searchField;
