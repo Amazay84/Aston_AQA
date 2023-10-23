@@ -1,3 +1,5 @@
+package Aston_AQA;
+
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -6,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import java.time.Duration;
 
 public class CalcMainScreen extends CalcElements {
-    private AndroidDriver<AndroidElement> driver;
+    private static AndroidDriver<AndroidElement> driver;
     private String expr;
     private String exprRes;
 
@@ -104,5 +106,8 @@ public class CalcMainScreen extends CalcElements {
     public String getExprRes() {
         exprRes = waitVisible(driver, getResult()).getText();
         return exprRes;
+    }
+    public static void closeCalcApp() {
+        driver.quit();
     }
 }

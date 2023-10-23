@@ -1,3 +1,5 @@
+import Aston_AQA.CalcMainScreen;
+import Aston_AQA.MobileFactory;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.jupiter.api.*;
 
@@ -13,7 +15,6 @@ public class CalcTest {
     public static void setup() {
         driver = MobileFactory.getAndroidDriver();
         calc = new CalcMainScreen(driver);
-
     }
 
     @AfterEach
@@ -22,11 +23,12 @@ public class CalcTest {
         actualExprRes = "";
         expectedExpr = "";
         expectedExprRes = "";
+        System.out.println("----------");
     }
 
     @AfterAll
     public static void teardown() {
-        driver.quit();
+        calc.closeCalcApp();
     }
 
     @Test

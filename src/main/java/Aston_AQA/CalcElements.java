@@ -1,3 +1,5 @@
+package Aston_AQA;
+
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import org.openqa.selenium.WebElement;
@@ -6,6 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class CalcElements {
+    @FindBy (id = "Calculator")
+    private AndroidElement calculator;
     @FindBy(id = "com.miui.calculator:id/btn_plus_s")
     private AndroidElement plus;
     @FindBy(id = "com.miui.calculator:id/btn_minus_s")
@@ -43,7 +47,9 @@ public abstract class CalcElements {
     @FindBy(id = "com.miui.calculator:id/btn_c_s")
     private AndroidElement clear;
 
-
+    public AndroidElement getCalculator() {
+        return calculator;
+    }
     public AndroidElement getEqual() {
         return equal;
     }
