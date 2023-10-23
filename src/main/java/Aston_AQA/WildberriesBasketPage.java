@@ -1,3 +1,5 @@
+package Aston_AQA;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -56,7 +58,8 @@ public class WildberriesBasketPage extends WildberriesElements {
     }
     public WildberriesBasketPage getProductInform() {
         Map<String, String> prodInfo = IntStream.range(0, productNames.size()).boxed()
-                .collect(Collectors.toMap(i -> productNames.get(i).getText(), i -> productPrises.get(i).getText()));
+                .collect(Collectors.toMap(i -> productNames.get(i).getDomProperty("textContent"),
+                        i -> productPrises.get(i).getDomProperty("textContent")));
         setProductInfo(prodInfo);
         return this;
     }

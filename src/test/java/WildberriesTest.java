@@ -1,3 +1,7 @@
+import Aston_AQA.WildberriesBasketPage;
+import Aston_AQA.WildberriesElements;
+import Aston_AQA.WildberriesHomePage;
+import Aston_AQA.WildberriesProductPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
@@ -22,11 +26,11 @@ public class WildberriesTest {
         driver.get("https://www.wildberries.by/");
     }
 
-    @BeforeEach
-    void setWait() {
-
-        driver.manage().timeouts().scriptTimeout(Duration.ofMillis(5000));
-    }
+//    @BeforeEach
+//    void setWait() {
+//
+//        driver.manage().timeouts().scriptTimeout(Duration.ofMillis(5000));
+//    }
 
     @AfterEach
     void setClean() {
