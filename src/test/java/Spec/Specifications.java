@@ -23,6 +23,13 @@ public class Specifications {
                 .expectStatusCode(HttpStatus.SC_OK)
                 .build();
     }
+
+    public static ResponseSpecification responseSpec400fail() {
+        return new ResponseSpecBuilder()
+                .log(LogDetail.ALL)
+                .expectStatusCode(HttpStatus.SC_BAD_REQUEST)
+                .build();
+    }
     public static void installSpecification(RequestSpecification request, ResponseSpecification response) {
         RestAssured.requestSpecification = request;
         RestAssured.responseSpecification = response;
