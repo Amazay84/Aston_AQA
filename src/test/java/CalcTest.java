@@ -1,8 +1,13 @@
 import Aston_AQA.CalcMainScreen;
 import Aston_AQA.MobileFactory;
 import io.appium.java_client.android.AndroidDriver;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Stories;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
-
+@Epic("Calculator Test Epic")
+@Feature("Calculating Some Valid Values")
 public class CalcTest {
     private static AndroidDriver driver;
     private static CalcMainScreen calc;
@@ -33,6 +38,7 @@ public class CalcTest {
         calc.closeCalcApp();
     }
 
+    @Story("Calculate the division of some values")
     @Test
     public void divideTest() {
         calc.nine().zero().divide().three().equal();
@@ -45,6 +51,7 @@ public class CalcTest {
                 () -> Assertions.assertTrue(expectedExprRes.equals(actualExprRes)));
     }
 
+    @Story("Calculate the multiplication of some values")
     @Test
     public void multiplyTest() {
         calc.clear().clear().one().eight().multiply().nine().equal();
@@ -57,6 +64,7 @@ public class CalcTest {
                 () -> Assertions.assertTrue(actualExprRes.equals(expectedExprRes)));
     }
 
+    @Story("Calculating the summing of some values")
     @Test
     public void sumTest() {
         calc.clear().clear().one().eight().nine().plus().two().seven().nine().equal();
@@ -69,6 +77,7 @@ public class CalcTest {
                 () -> Assertions.assertTrue(actualExprRes.equals(expectedExprRes)));
     }
 
+    @Story("Calculating the difference between two values")
     @Test
     public void subTest() {
         calc.clear().clear().three().nine().six().sub().six().three().nine().equal();
