@@ -4,7 +4,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 
-public abstract class TestCfg {
+public class TestCfg {
     protected static AndroidDriver<AndroidElement> driver;
     protected static CalcMainScreen calc;
     protected String expectedExpr;
@@ -35,6 +35,7 @@ public abstract class TestCfg {
 
     @AfterAll
     public static void teardown() {
-        calc.closeCalcApp();
+        driver.close();
+        driver.quit();
     }
 }
