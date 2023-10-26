@@ -15,7 +15,6 @@ public class TestCfg {
     public static void initDrv() {
         driver = MobileFactory.getAndroidDriver();
         calc = new CalcMainScreen(driver);
-//        driver.register(new CustomRep());
     }
     @BeforeAll
     public static void setup() {
