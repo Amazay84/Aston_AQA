@@ -1,8 +1,8 @@
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 
 public class TestCfg {
     protected static AndroidDriver<AndroidElement> driver;
@@ -23,7 +23,7 @@ public class TestCfg {
         calc.clear().clear();
     }
 
-    @AfterEach
+    @BeforeEach
     public void tearDown() {
         actualExpr = "";
         actualExprRes = "";
