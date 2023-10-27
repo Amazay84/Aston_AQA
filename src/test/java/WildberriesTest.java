@@ -1,52 +1,16 @@
-import Aston_AQA.WildberriesBasketPage;
-import Aston_AQA.WildberriesElements;
-import Aston_AQA.WildberriesHomePage;
-import Aston_AQA.WildberriesProductPage;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import Base.TestsConfig;
+import WbPages.WildberriesBasketPage;
+import WbPages.WildberriesElements;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.time.Duration;
-import java.util.HashMap;
-
-public class WildberriesTest {
-    private static WildberriesHomePage homePage;
-    private static WildberriesProductPage productPage;
-    private static WildberriesBasketPage basketPage;
-    private static WebDriver driver;
-
-    @BeforeAll
-    static void setup() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        homePage = new WildberriesHomePage(driver);
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
-        driver.get("https://www.wildberries.by/");
-    }
-
-//    @BeforeEach
-//    void setWait() {
-//
-//        driver.manage().timeouts().scriptTimeout(Duration.ofMillis(5000));
-//    }
-
-    @AfterEach
-    void setClean() {
-        WildberriesElements.setProductInfo(new HashMap<>());
-    }
-    @AfterAll
-    static void tearDown() {
-        driver.quit();
-    }
+public class WildberriesTest extends TestsConfig {
 
     @Test
     void smokeTest() {
         String firstProd = "PlayStation 5 1200A (Япония), 3-я ревизия, с дисководом";
         String secondProd = "Геймпад для PS5 DualSense Black";
 
-        homePage.searchProduct(firstProd).clickSearchBtn().selectProduct(0).addToBasket()
+        getHomePage().searchProduct(firstProd).clickSearchBtn().selectProduct(0).addToBasket()
                 .clickQuantityBtn().backToHome()
                 .searchProduct(secondProd).clickSearchBtn().selectProduct(0)
                 .addToBasket().clickQuantityBtn().backToHome()

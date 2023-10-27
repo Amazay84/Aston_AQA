@@ -1,4 +1,4 @@
-package Aston_AQA;
+package WbPages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
