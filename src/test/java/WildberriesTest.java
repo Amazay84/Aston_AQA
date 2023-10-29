@@ -8,7 +8,7 @@ public class WildberriesTest extends TestsConfig {
     @Test
     void smokeTest() {
         String firstProd = "PlayStation 5 1200A (Япония), 3-я ревизия, с дисководом";
-        String secondProd = "Геймпад для PS5 DualSense Black";
+        String secondProd = "Геймпад для PS5 DualSense Black, черная полночь";
 
         getHomePage().searchProduct(firstProd).clickSearchBtn().selectProduct(0).addToBasket()
                 .clickQuantityBtn().backToHome()
@@ -34,10 +34,10 @@ public class WildberriesTest extends TestsConfig {
         System.out.println(WildberriesBasketPage.getProductCounters(0) +
                 " | " + WildberriesBasketPage.getProductCounters(1));
 
-        Assertions.assertAll(() -> Assertions.assertTrue(WildberriesElements.getProductInfo().containsKey(secondProd)),
-                () -> Assertions.assertTrue(WildberriesElements.getProductInfo().containsKey(firstProd)),
-                () -> Assertions.assertTrue(actualPrice.equals(expectedPrice)),
-                () -> Assertions.assertTrue((firstProductCountAtBasket + secondProductCountAtBasket)
-                        == totalCountAtAllAtBasket));
+        Assertions.assertTrue(WildberriesElements.getProductInfo().containsKey(secondProd));
+        Assertions.assertTrue(WildberriesElements.getProductInfo().containsKey(firstProd));
+        Assertions.assertTrue(actualPrice.equals(expectedPrice));
+        Assertions.assertTrue(
+                (firstProductCountAtBasket + secondProductCountAtBasket) == totalCountAtAllAtBasket);
     }
 }

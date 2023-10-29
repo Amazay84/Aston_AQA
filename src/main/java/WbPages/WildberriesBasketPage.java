@@ -60,7 +60,7 @@ public class WildberriesBasketPage extends WildberriesElements {
 
         Map<String, String> prodInfo = IntStream.range(0, productNames.size()).boxed()
                 .collect(Collectors.toMap(
-                        i -> visibilityOfElement(driver, productNames.get(i)).getDomProperty("textContent"),
+                        i -> visibilityOfElement(driver, productNames.get(i)).getText(),
                         i -> visibilityOfElement(driver, productPrises.get(i)).getDomProperty("textContent")));
         setProductInfo(prodInfo);
         return this;
