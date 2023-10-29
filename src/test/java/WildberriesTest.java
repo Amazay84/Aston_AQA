@@ -8,7 +8,7 @@ public class WildberriesTest extends TestsConfig {
     @Test
     void smokeTest() {
         String firstProd = "PlayStation 5 1200A (Япония), 3-я ревизия, с дисководом";
-        String secondProd = "Геймпад для PS5 DualSense Black, черная полночь";
+        String secondProd = "Оригинальный джойстик PlayStation DualSense для PS5";
 
         getHomePage().searchProduct(firstProd).clickSearchBtn().selectProduct(0).addToBasket()
                 .clickQuantityBtn().backToHome()

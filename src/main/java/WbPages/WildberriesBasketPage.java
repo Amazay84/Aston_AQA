@@ -25,7 +25,7 @@ public class WildberriesBasketPage extends WildberriesElements {
     private static List<WebElement> productCounters;
     @FindBy (xpath = "//*[@class='b-item-price__lower']")
     private static List<WebElement> productPrises;
-    @FindBy (xpath = "//*[@data-tag='itemName']")
+    @FindBy (xpath = "//*[@data-tag='itemName' and text() and normalize-space()]")
     private static List<WebElement> productNames;
     private static String totalShopping;
     public WildberriesBasketPage(WebDriver driver) {
